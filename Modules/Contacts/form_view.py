@@ -3,7 +3,7 @@
 from PyQt5.QtGui import QIcon
 from Widgets.PushButton import MYPushButton
 from icons import ICON
-from Modules.Appointments.BaseClases.base_ui_attribs import BaseUIAttribs
+from Modules.Contacts.BaseClases.base_ui_attribs import BaseUIAttribs
 
 
 

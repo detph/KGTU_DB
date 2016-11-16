@@ -33,7 +33,7 @@ class AppointmentStructure(object):
     def __init__(
             self,
             fio=None,
-            phone=None,
+            role=None,
             descript=None,
             qdate_qtime=None,
             q_time=None,
@@ -52,7 +52,7 @@ class AppointmentStructure(object):
 
 
         :param fio: <str> : ФИО
-        :param phone: <str, int> : номер телефона
+        :param role: <str> : назначение встречи
         :param descript: <str> : описание дела
         :param qdate_qtime: <tuple(QDate, QTime)> : Qt дата и Qt время
         :param q_datetime: <QDateTime> : Qt время и дата
@@ -62,7 +62,7 @@ class AppointmentStructure(object):
         self.__init_Attributes()
         self.__init_Parameters(
             fio=fio ,
-            phone=phone,
+            role=role,
             descript=descript,
             qdate_qtime=qdate_qtime,
             q_time=q_time,
@@ -83,9 +83,9 @@ class AppointmentStructure(object):
         self.__datetime = QDateTime()
         self.__db_datetime = ''
 
-    def __init_Parameters(self, fio, phone, descript, qdate_qtime, q_time, q_datetime, db_datetime):
+    def __init_Parameters(self, fio, role, descript, qdate_qtime, q_time, q_datetime, db_datetime):
         if fio: self.setFIO(fio)
-        if phone: self.setRole(phone)
+        if role: self.setRole(role)
         if descript: self.setDescription(descript)
         if qdate_qtime:
             self.setDate(qdate_qtime[0], qdate_qtime[1])
@@ -221,7 +221,7 @@ if __name__ == '__main__':
 
     struct = AppointmentStructure(
         fio=fio,
-        phone=role,
+        role=role,
         descript=descript,
         qdate_qtime=(date, time)
     )

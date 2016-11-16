@@ -1,9 +1,9 @@
 
 
 
-from Modules.Appointments.BaseClases.base_ui_attribs import BaseUIAttribs
-from Widgets.Dialog import MYDialog
 
+from Modules.Contacts.BaseClases.base_ui_attribs import BaseUIAttribs
+from Widgets.Dialog import MYDialog
 
 
 
@@ -13,11 +13,11 @@ class FormEdit(MYDialog):
     def __init__(self, parent=None):
         super(FormEdit, self).__init__(
             parent=parent,
-            title='Редактировать дело'
+            title='Edit Contact'
         )
         self.attribs = BaseUIAttribs('editable')
         self.main_layout.addWidget(self.attribs)
-
+        self.setFixedSize(330, 120)
 
 
 

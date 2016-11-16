@@ -31,7 +31,7 @@ class MYDialog(QDialog):
     ):
         super(MYDialog, self).__init__()
 
-        if parent: self.setParent(parent)
+        if parent: self.setParent(parent, Qt.Window)
 
         if title: self.setWindowTitle(str(title))
 

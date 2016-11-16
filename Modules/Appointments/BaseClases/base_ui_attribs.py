@@ -13,8 +13,6 @@ from Widgets.LineEdit import MYLineEdit
 from Widgets.Label import MYLabel
 from Widgets.Widget import MYWidget
 
-from PyQt5.QtGui     import QDoubleValidator
-
 
 
 
@@ -72,8 +70,6 @@ class BaseUIAttribs(MYWidget):
 
         if self.__uitype == 'editable':
             self.__date.setCalendarPopup(True)
-            validator = QDoubleValidator(0, 100, 2, self)
-            self.__role.setValidator(validator)
 
     def __init_Layouting(self):
 
@@ -163,7 +159,7 @@ if __name__ == '__main__':
 
     struct = AppointmentStructure(
         fio=fio,
-        phone=role,
+        role=role,
         descript=descript,
         qdate_qtime=(date, time)
     )

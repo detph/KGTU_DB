@@ -141,5 +141,5 @@ if __name__ == "__main__":
     model = QBestSqlTableModel(table='appointments')
     # model.selectTable("notes")
     # model.addNewRecord(fields=("2016-11-06 22:12", 3))
-    model.removeRecord(0)
+    # model.removeRecord(0)
     app.exit()
