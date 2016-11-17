@@ -105,25 +105,13 @@ class QBestSqlTableModel(QSqlTableModel):
         return record
 
 
-    def selectTable(self, table, filter_type=CurrentFilter, filter=""):
+    def selectTable(self, table):
         """
         Выборка из таблицы "table"
-        QBestSqlTableModel.emptyFilter - стереть фильтр
-        QBestSqlTableModel.currentFilter - не изменять фильтр
-        QBestSqlTableModel.changeFilter - изменение фильтра
-        :param filter_type: указыват на то, как надо использовать фильтр
-        :param filter: строка с фильтром
         """
 
         if table == None: return None
         self.setTable(table)
-        if filter_type == self.EmptyFilter:
-            self.setFilter("")
-        elif filter_type == self.CurrentFilter:
-            pass
-        elif filter_type == self.ChangeFilter:
-            self.setFilter(filter)
-
         self.select()
         return self.db.tables()
 
@@ -131,6 +119,9 @@ class QBestSqlTableModel(QSqlTableModel):
     def setHeaders(self, headers=[]):
         for i in range(0, len(headers)):
             self.setHeaderData(i, 1, str(headers[i]))
+
+    def setFiltred(self, filter):
+        pass
 
 
 
