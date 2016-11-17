@@ -129,6 +129,7 @@ class QBestSqlTableModel(QSqlTableModel):
         for i in range(0, len(headers)):
             self.setHeaderData(i, 1, str(headers[i]))
 
+
     def setDateTimeFilter(self, option, field = "datetime", date = QDateTime().currentDateTime()):
         """
         :param col:

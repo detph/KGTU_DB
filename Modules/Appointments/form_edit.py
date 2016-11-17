@@ -13,7 +13,7 @@ class FormEdit(MYDialog):
     def __init__(self, parent=None):
         super(FormEdit, self).__init__(
             parent=parent,
-            title='Редактировать дело'
+            title='Редактирование дела'
         )
         self.attribs = BaseUIAttribs('editable')
         self.main_layout.addWidget(self.attribs)

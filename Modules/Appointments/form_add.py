@@ -13,10 +13,14 @@ class FormAdd(MYDialog):
     def __init__(self, parent=None):
         super(FormAdd, self).__init__(
             parent=parent,
-            title='Добавить дело'
+            title='Добавление дела'
         )
         self.attribs = BaseUIAttribs('editable')
         self.main_layout.addWidget(self.attribs)
+
+
+
+
 
 
 

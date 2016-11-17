@@ -16,10 +16,24 @@ from Widgets.Dialog import MYDialog
 class FormAdd(MYDialog):
 
     def __init__(self, parent=None):
-        super(FormAdd, self).__init__(parent)
+        super(FormAdd, self).__init__(
+            title='Добавление контакта',
+            parent=parent
+        )
         self.attribs = BaseUIAttribs(type='editable')
         self.main_layout.addWidget(self.attribs)
         self.setFixedSize(330, 120)
+
+
+    def accept(self):
+        name = self.attribs.fio.text()
+        phone = self.attribs.phone.text()
+        self.attribs.dataStructure.setFIO(name)
+        self.attribs.dataStructure.setPhone(phone)
+        super(FormAdd, self).accept()
+
+
+
 
 
 if __name__ == '__main__':

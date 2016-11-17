@@ -13,7 +13,7 @@ class MYComboBox(QComboBox):
         super(MYComboBox, self).__init__()
         if parent:
             self.setParent(parent)
-        self.setFixedHeight(30)
+        # self.setFixedHeight(30)
         if ENABLE_STYLES: self.setStyleSheet(STYLE.ComboBox)
 
     def updateList(self, new_list):

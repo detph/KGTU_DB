@@ -13,11 +13,21 @@ class FormEdit(MYDialog):
     def __init__(self, parent=None):
         super(FormEdit, self).__init__(
             parent=parent,
-            title='Edit Contact'
+            title='Редактирование контакта'
         )
         self.attribs = BaseUIAttribs('editable')
         self.main_layout.addWidget(self.attribs)
         self.setFixedSize(330, 120)
+
+
+    def accept(self):
+        name = self.attribs.fio.text()
+        phone = self.attribs.phone.text()
+        self.attribs.dataStructure.setFIO(name)
+        self.attribs.dataStructure.setPhone(phone)
+        super(FormEdit, self).accept()
+
+
 
 
 

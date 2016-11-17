@@ -1,24 +1,28 @@
-from Widgets.ListView import MYListView
+from Widgets.TableView import MYTableView
 
 
-class BaseUIList(MYListView):
+
+
+
+class BaseUIList(MYTableView):
     # SIGNALS
 
 
 
-    def __init__(self, parent=None):
+    def __init__(self, model, parent=None):
         super(BaseUIList, self).__init__(parent=parent)
 
-        self.__init_Attributes()
-        self.__init_Parameters()
+        self.__init_Parameters(model)
 
 
-    # inits
-    def __init_Attributes(self):
-        pass
 
-    def __init_Parameters(self):
-        pass
+    def __init_Parameters(self, model):
+        self.setSelectionBehavior(self.SelectRows)
+        self.setSelectionMode(self.SingleSelection)
+        self.setModel(model)
+        self.hideColumn(1)
+        self.hideColumn(2)
+
 
 
 

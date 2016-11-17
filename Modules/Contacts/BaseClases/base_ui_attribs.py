@@ -52,12 +52,12 @@ class BaseUIAttribs(MYWidget):
 
 
         if self.__uitype == 'editable':
-            self.__fio   = MYLineEdit(parent=self)
-            self.__phone = MYLineEdit(self)
+            self.fio   = MYLineEdit(parent=self)
+            self.phone = MYLineEdit(self)
 
         else:
-            self.__fio   = MYLabel(parent=self)
-            self.__phone = MYLabel(parent=self)
+            self.fio   = MYLabel(parent=self)
+            self.phone = MYLabel(parent=self)
 
     def __init_Parameters(self):
         self.__form_layout.setContentsMargins(0, 0, 0, 0)
@@ -65,7 +65,7 @@ class BaseUIAttribs(MYWidget):
 
         if self.__uitype == 'editable':
             validator = QDoubleValidator(0, 15, 2, self)
-            self.__phone.setValidator(validator)
+            self.phone.setValidator(validator)
 
     def __init_Layouting(self):
 
@@ -78,8 +78,8 @@ class BaseUIAttribs(MYWidget):
         self.__form_layout.setWidget(0, AS_LABEL, self.__lbl_fio)
         self.__form_layout.setWidget(1, AS_LABEL, self.__lbl_phone)
 
-        self.__form_layout.setWidget(0, AS_FIELD, self.__fio)
-        self.__form_layout.setWidget(1, AS_FIELD, self.__phone)
+        self.__form_layout.setWidget(0, AS_FIELD, self.fio)
+        self.__form_layout.setWidget(1, AS_FIELD, self.phone)
 
 
 
@@ -100,7 +100,7 @@ class BaseUIAttribs(MYWidget):
     def setFIO(self, FIO):
         FIO = str(FIO)
         self.__structure.setFIO(FIO)
-        self.__fio.setText(FIO)
+        self.fio.setText(FIO)
 
     def setPhone(self, phone):
         """
@@ -108,7 +108,7 @@ class BaseUIAttribs(MYWidget):
         """
 
         self.__structure.setPhone(phone)
-        self.__phone.setText(str(phone))
+        self.phone.setText(str(phone))
 
 
 
@@ -126,7 +126,7 @@ if __name__ == '__main__':
         phone=891148897
     )
 
-    win = BaseUIAttribs('')
+    win = BaseUIAttribs("")
     win.setDataStructure(struct)
 
     win.show()

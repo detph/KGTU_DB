@@ -45,7 +45,7 @@ class TypeConverter(object):
         Конвертирует дату БД в Qt дату
         :param db_date: <BD_DateType> : дата из БД
         """
-        pattern = "yyyy-MM-dd hh:mm:ss.zzz"
+        pattern = "yyyy-MM-dd hh:mm:ss"
         return QDateTime().fromString(db_date, pattern)
 
     def DbDateTimeToStr(self, db_date):
@@ -54,3 +54,8 @@ class TypeConverter(object):
         :param db_date: <BD_DateType> : дата из БД
         """
         return db_date[:23]
+
+
+# t = TypeConverter()
+# d = t.DbDateTimeToQDateTime('2012-07-10 13:45:00')
+# print(d)

@@ -25,6 +25,11 @@ class FormView(BaseUIAttribs):
 
 
 
+
+
+
+
+
 if __name__ == '__main__':
     from PyQt5.QtWidgets import QApplication
     app = QApplication([])

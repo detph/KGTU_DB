@@ -27,7 +27,7 @@ class BaseUIAttribs(MYWidget):
         super(BaseUIAttribs, self).__init__(
             parent=parent,
             layout='V',
-            layout_margins=[10, 10, 10, 10],
+            layout_margins=[0, 0, 0, 0],
             layout_spacing=10
         )
 
@@ -73,6 +73,7 @@ class BaseUIAttribs(MYWidget):
 
         if self.__uitype == 'editable':
             self.__date.setCalendarPopup(True)
+            self.__fio.setLineEdit(MYLineEdit())
             self.__fio.setModel(self.__fio_model)
 
     def __init_Layouting(self):
@@ -144,6 +145,15 @@ class BaseUIAttribs(MYWidget):
             self.__date.setText(self.__structure.strDate)
             self.__time.setText(self.__structure.strTime)
 
+    def setDBDateTime(self, db_datetime):
+        self.__structure.setDBDateTime(db_datetime)
+        # print(self.__structure.qDateTime)
+        if self.__uitype == 'editable':
+            self.__date.setDate(self.__structure.qDate)
+            self.__time.setTime(self.__structure.qTime)
+        else:
+            self.__date.setText(self.__structure.strDate)
+            self.__time.setText(self.__structure.strTime)
 
 
 
