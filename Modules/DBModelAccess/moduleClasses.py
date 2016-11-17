@@ -56,6 +56,8 @@ class QBestSqlTableModel(QSqlTableModel):
         for item in fields:
             record.setValue(i, str(item))
             i += 1
+        self.insertRecord(0, record)
+
 
 
     def removeRecord(self, row=-1):

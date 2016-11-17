@@ -109,7 +109,7 @@ class Application(QApplication):
         self.currentDateTime.setTime(QTime.currentTime())
         datetime = str(self.currentDateTime.toPyDateTime())[0:23]
         self.showNoteItems("", 0,  "")
-        self.model.addNewRecord(fields=[datetime, " ", 0, " "])
+        self.model.addRecord(fields=[datetime, " ", 0, " "])
         self.selectCalendarDate()
         self.selectNote()
 
@@ -160,6 +160,7 @@ class Application(QApplication):
             if self.isDateTimeEquales(record.datetime):
                 self.dialog.setText(record.text)
                 self.dialog.setWindowTitle(record.theme)
+
                 if self.dialog.exec() == 1:
                     print("Задача выполенна")
                     self.model.setFilter("completion < 2")
