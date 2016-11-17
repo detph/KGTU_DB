@@ -172,6 +172,7 @@ class Application(QApplication):
                 else:
                     self.model.setFilter("completion < 2")
                     record = self.model.record(0)
+                    self.selectCalendarDate()
                     self.selectNote(0)
                     # datetime = str(self.getDateTimeFromStr(
                     #     record.value(0)
