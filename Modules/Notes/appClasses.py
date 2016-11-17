@@ -183,8 +183,6 @@ class Application(QApplication):
                     self.timer.stop()
                     # self.putDateTimeToLineFromTable()
 
-
-
     def putDateTimeToLineFromTable(self):
         self.model.setFilter("completion < 2")
         self.model.sort(0, Qt.AscendingOrder)
