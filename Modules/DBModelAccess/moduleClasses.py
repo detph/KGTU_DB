@@ -3,6 +3,7 @@ from collections import OrderedDict
 from PyQt5.QtCore import QSortFilterProxyModel
 from PyQt5.QtSql import QSqlTableModel, QSqlDatabase
 from PyQt5.QtWidgets import QApplication
+from PyQt5.QtCore import QDateTime
 
 from paths import DB_FILE_PATH
 
@@ -20,6 +21,14 @@ class QBestSqlTableModel(QSqlTableModel):
     # record type
     SqlRecord = 0
     DictRecord = 1
+
+    # datetime operation type
+    Equals = 0
+    Greater = 1
+    GreaterOrEquals = 2
+    Less = 3
+    LessAndEquals = 4
+
 
 
 
@@ -120,13 +129,31 @@ class QBestSqlTableModel(QSqlTableModel):
         for i in range(0, len(headers)):
             self.setHeaderData(i, 1, str(headers[i]))
 
-    def setFiltred(self, filter):
-        pass
+    def setDateTimeFilter(self, option, field = "datetime", date = QDateTime().currentDateTime()):
+        """
+        :param col:
+         Поле с датой-временем
+        :param option:
+         Логическая операция сравнения с датой date
+         0 - ==
+         1 - >
+         2 - >=
+         3 - <
+         4 - <=
+        :param date:
+         Дата для сравнения, По умолчанию текущая
+        :return:
+        """
+        optionStr = None
+        if option == 0: optionStr = "=="
+        elif option == 1: optionStr = ">"
+        elif option == 2: optionStr = ">="
+        elif option == 3: optionStr = "<"
+        elif option == 4: optionStr = "<="
 
-
-
-
-
+        self.setFilter("datetime(" + field + ") "
+                       + optionStr +
+                       " datetime('" + str(date.toPyDateTime()) + "')")
 
 
 if __name__ == "__main__":
@@ -135,4 +162,7 @@ if __name__ == "__main__":
     # model.selectTable("notes")
     # model.addNewRecord(fields=("2016-11-06 22:12", 3))
     # model.removeRecord(0)
+
+    model.setDateTimeFilter(option=model.LessAndEquals)
+    print(model.rowCount())
     app.exit()
