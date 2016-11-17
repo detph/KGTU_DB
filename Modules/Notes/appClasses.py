@@ -71,9 +71,9 @@ class Application(QApplication):
         self.dialog = QMessageBox(self.window)
         self.dialog.addButton(QPushButton("Отложить"), QMessageBox.RejectRole)
         self.dialog.addButton(QPushButton("Выполнено"), QMessageBox.AcceptRole)
-        # self.dialog.
+
         self.putDateTimeToLineFromTable()
-        # self.window.showMinimized()
+
 
     def selectCalendarDate(self):
         date = self.window.calendar.selectedDate()
@@ -135,7 +135,7 @@ class Application(QApplication):
             self.model.setRecord(rowNumb, row)
             self.showNoteItems("", 0, "")
             self.currentIndex -1
-            self.timer.stop()
+            self.timer.start(1000)
             self.putDateTimeToLineFromTable()
 
     @staticmethod
@@ -160,7 +160,7 @@ class Application(QApplication):
             if self.isDateTimeEquales(record.datetime):
                 self.dialog.setText(record.text)
                 self.dialog.setWindowTitle(record.theme)
-
+                self.window.showNormal()
                 if self.dialog.exec() == 1:
                     print("Задача выполенна")
                     self.model.setFilter("completion < 2")
@@ -172,13 +172,16 @@ class Application(QApplication):
                 else:
                     self.model.setFilter("completion < 2")
                     record = self.model.record(0)
-                    datetime = str(self.getDateTimeFromStr(
-                        record.value(0)
-                    ).addSecs(60).toPyDateTime())[:23]
-                    print(datetime)
-                    record.setValue(0, datetime)
-                    self.model.setRecord(0, record)
-                    self.putDateTimeToLineFromTable()
+                    self.selectNote(0)
+                    # datetime = str(self.getDateTimeFromStr(
+                    #     record.value(0)
+                    # ))
+                    # print(datetime)
+                    # record.setValue(0, datetime)
+                    # self.model.setRecord(0, record)
+
+                    self.timer.stop()
+                    # self.putDateTimeToLineFromTable()
 
 
 
