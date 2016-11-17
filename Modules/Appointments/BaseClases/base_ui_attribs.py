@@ -1,6 +1,7 @@
 # Qt Types
 
 from Modules.Appointments.BaseClases.data_structure import AppointmentStructure
+from Modules.DBModelAccess.moduleClasses import QBestSqlTableModel
 
 # WIDGETS
 from PyQt5.QtWidgets import QFormLayout
@@ -10,6 +11,7 @@ from PyQt5.QtWidgets import QTextEdit
 from PyQt5.QtWidgets import QTimeEdit
 from PyQt5.QtWidgets import QDateEdit
 from Widgets.LineEdit import MYLineEdit
+from Widgets.ComboBox import MYComboBox
 from Widgets.Label import MYLabel
 from Widgets.Widget import MYWidget
 
@@ -51,10 +53,11 @@ class BaseUIAttribs(MYWidget):
         self.__lbl_role  = MYLabel(parent=self, bold=True, text='Назначение:')
 
         if self.__uitype == 'editable':
+            self.__fio_model = QBestSqlTableModel('contacts')
             self.__time  = QTimeEdit(self)
             self.__date  = QDateEdit(self)
             self.__role  = MYLineEdit(parent=self)
-            self.__fio   = MYLineEdit(parent=self)
+            self.__fio   = MYComboBox(parent=self)
             self.__descript = QTextEdit(self)
 
         else:
@@ -70,6 +73,7 @@ class BaseUIAttribs(MYWidget):
 
         if self.__uitype == 'editable':
             self.__date.setCalendarPopup(True)
+            self.__fio.setModel(self.__fio_model)
 
     def __init_Layouting(self):
 
@@ -111,7 +115,10 @@ class BaseUIAttribs(MYWidget):
     def setFIO(self, FIO):
         FIO = str(FIO)
         self.__structure.setFIO(FIO)
-        self.__fio.setText(FIO)
+        if self.__uitype == 'editable':
+            self.__fio.setCurrentText(FIO)
+        else:
+            self.__fio.setText(FIO)
 
     def setRole(self, role):
         """

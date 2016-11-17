@@ -5,6 +5,7 @@ from Widgets.MainWindow import MYMainWindow
 from Modules.Contacts.form_add import FormAdd
 from Modules.Contacts.form_edit import FormEdit
 from Modules.Contacts.form_view import FormView
+from Modules.DBModelAccess.moduleClasses import QBestSqlTableModel
 from Modules.Contacts.BaseClases.base_ui_list import BaseUIList
 from PyQt5.QtGui import QIcon
 from icons import ICON
@@ -35,12 +36,13 @@ class Contacts(MYMainWindow):
     #inits
     def __init_Attributes(self):
         self.__list = BaseUIList(self)
+        self.__model = QBestSqlTableModel(table='contacts')
         self.__form_view = FormView(self)
         self.__form_add  = FormAdd(self)
         self.__form_edit = FormEdit(self)
 
     def __init_Parameters(self):
-        pass
+        self.__list.setModel(self.__model)
 
     def __init_Layouting(self):
         self.cwidget.main_layout.addWidget(self.__form_view)

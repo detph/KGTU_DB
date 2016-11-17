@@ -7,7 +7,7 @@ from PyQt5.QtWidgets import QApplication
 from paths import DB_FILE_PATH
 
 
-print(DB_FILE_PATH)
+# print(DB_FILE_PATH)
 
 
 class QBestSqlTableModel(QSqlTableModel):
