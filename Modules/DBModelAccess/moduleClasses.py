@@ -76,8 +76,8 @@ class QBestSqlTableModel(QSqlTableModel):
         :param row:
         :param table:
         :param gettingSetting:
-                    0 - получение QSqlRecord
-                    1 - получение упорядоченного словаря
+            SqlRecord  - получение QSqlRecord
+            DictRecord - получение упорядоченного словаря
         """
         self.selectTable(filter_type=self.EmptyFilter)
         record = self.record(row)

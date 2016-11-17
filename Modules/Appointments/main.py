@@ -31,7 +31,7 @@ class Appointments(MYMainWindow):
 
     # inits
     def __init_Attributes(self):
-        self.__list = BaseUIList(self)
+        #self.__list = BaseUIList(self)
         self.__form_view = FormView(self)
         self.__form_add  = FormAdd(self)
         self.__form_edit = FormEdit(self)
@@ -41,7 +41,7 @@ class Appointments(MYMainWindow):
 
     def __init_Layouting(self):
         self.cwidget.main_layout.addWidget(self.__form_view)
-        self.cwidget.main_layout.addWidget(self.__list)
+        #self.cwidget.main_layout.addWidget(self.__list)
 
     def __init_Connects(self):
         self.__form_view.btn_edit.clicked.connect(self.__tool_OpenEditForm)
