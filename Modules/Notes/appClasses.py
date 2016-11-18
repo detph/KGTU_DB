@@ -1,10 +1,14 @@
 import sys
+from PyQt5 import QtGui
 
 from PyQt5.QtCore import QDate
 from PyQt5.QtCore import QDateTime
 from PyQt5.QtCore import QTime
 from PyQt5.QtCore import QTimer
+from PyQt5.QtCore import QUrl
 from PyQt5.QtCore import Qt
+from PyQt5.QtMultimedia import QMediaPlayer
+from PyQt5.QtMultimedia import QSound
 from PyQt5.QtSql import QSqlTableModel, QSqlDatabase, QSqlRecord
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtWidgets import QDialog
@@ -15,6 +19,8 @@ from PyQt5.QtWidgets import QPushButton
 
 from Modules.DBModelAccess.moduleClasses import QBestSqlTableModel
 from paths import DB_FILE_PATH
+
+
 
 class Record():
 
@@ -30,9 +36,11 @@ class Application(QApplication):
 
     currentIndex = -1
     currentRecord = None
+    showTimeOnly = True
 
     def __init__(self, args = []):
         super(QApplication, self).__init__(args)
+
         import Widgets.notes
         self.window = Widgets.notes.getForm()
         self.timer = QTimer()
@@ -54,7 +62,7 @@ class Application(QApplication):
         self.window.noteList.setModel(self.model)
         self.window.noteList.setColumnWidth(0, 70)
         self.window.noteList.hideColumn(3)
-        self.window.noteList.setItemDelegate(noteListDelegate(self.window.noteList))
+        self.window.noteList.setItemDelegate(noteListDelegate(self.window.noteList, self))
 
         self.window.calendar.clicked.connect(self.selectCalendarDate)
         self.window.noteList.clicked.connect(self.selectNote)
@@ -62,6 +70,7 @@ class Application(QApplication):
         self.window.addNoteButton.clicked.connect(self.addNote)
         self.window.remNoteButton.clicked.connect(self.remNote)
         self.window.saveButton.clicked.connect(self.saveNote)
+        self.window.showAllButton.clicked.connect(self.setNullFilter)
 
         self.window.calendar.setSelectedDate(QDate())
         self.selectCalendarDate()
@@ -74,8 +83,12 @@ class Application(QApplication):
 
         self.putDateTimeToLineFromTable()
 
+    def setNullFilter(self):
+        self.model.setFilter("")
+        self.showTimeOnly = False
 
     def selectCalendarDate(self):
+        self.showTimeOnly = True
         date = self.window.calendar.selectedDate()
         self.currentDateTime.setDate(date)
         self.window.dateTimeEdit.setDateTime(self.currentDateTime)
@@ -161,6 +174,11 @@ class Application(QApplication):
                 self.dialog.setText(record.text)
                 self.dialog.setWindowTitle(record.theme)
                 self.window.showNormal()
+                from pygame import mixer
+                mixer.init()
+                mixer.music.load("sound.mp3")
+                mixer.music.play()
+
                 if self.dialog.exec() == 1:
                     print("Задача выполенна")
                     self.model.setFilter("completion < 2")
@@ -219,7 +237,6 @@ class Application(QApplication):
         self.window.textEdit.setText(text)
 
     def start(self):
-
         self.setDataView()
         self.window.show()
         self.timer.start(1000)
@@ -228,7 +245,8 @@ class Application(QApplication):
 
 class noteListDelegate(QItemDelegate ):
 
-    def __init__(self, ListView):
+    def __init__(self, ListView, parent):
+        self.parent = parent
         super(QItemDelegate, self).__init__()
         self.ListView = ListView
 
@@ -240,28 +258,36 @@ class noteListDelegate(QItemDelegate ):
         except: pass
         text = ""
         col = ModelIndex.column()
-        str = ModelIndex.data(Qt.DisplayRole)
+        Str = ModelIndex.data(Qt.DisplayRole)
         if col == 2:
-            if str == 0:
+            if Str == 0:
                 text = "Не выполено"
-            elif str == 1:
+            elif Str == 1:
                 text = "В процессе"
-            elif str == 2:
+            elif Str == 2:
                 text = "Выполнено"
         elif col == 0:
             datetimeText = ""
-            if len(str) > 0:
-                datetimeText = QDateTime.fromString(
-                    str[0:16],
-                    "yyyy-MM-dd HH:mm"
-                ).time().toString()[0:5]
+            if len(Str) > 0:
+                if self.parent.showTimeOnly:
+                    datetimeText = QDateTime.fromString(
+                        Str[0:16],
+                        "yyyy-MM-dd HH:mm"
+                    ).time().toString()[0:5]
+                else:
+                    datetimeText = str(
+                        QDateTime.fromString(
+                            Str[0:16],
+                            "yyyy-MM-dd HH:mm"
+                        ).toPyDateTime()
+                    )[0:16]
 
             text = datetimeText
         elif col == 1:
-            if str.isspace():
+            if Str.isspace():
                 text = "Пусто"
             else:
-                text = str
+                text = Str
         Painter.drawText(StyleOptionViewItem.rect, Qt.AlignCenter, text)
 
     def createEditor(self, QWidget, QStyleOptionViewItem, QModelIndex):
