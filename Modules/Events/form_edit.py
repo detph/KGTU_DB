@@ -1,7 +1,7 @@
 
 
 
-from Modules.Appointments.BaseClases.base_ui_attribs import BaseUIAttribs
+from Modules.Events.BaseClases.base_ui_attribs import BaseUIAttribs
 from Widgets.Dialog import MYDialog
 
 
@@ -10,12 +10,12 @@ from Widgets.Dialog import MYDialog
 
 class FormEdit(MYDialog):
 
-    def __init__(self, parent=None):
+    def __init__(self, DB, parent=None):
         super(FormEdit, self).__init__(
             parent=parent,
-            title='Редактирование дела'
+            title='Редактирование дела',
         )
-        self.attribs = BaseUIAttribs('editable')
+        self.attribs = BaseUIAttribs(DB, BaseUIAttribs.Editable, self)
         self.main_layout.addWidget(self.attribs)
 
 

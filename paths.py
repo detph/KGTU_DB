@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 
 
 
@@ -39,5 +38,5 @@ RESOURCES_PATH = os.path.join(ROOT, 'Resources')
 STYLE_PATH     = os.path.join(RESOURCES_PATH, 'StyleFiles')
 ICONS_PATH     = os.path.join(RESOURCES_PATH, 'Icons')
 DB_PATH        = os.path.join(ROOT, 'DataBase')
-DB_FILE_PATH   = os.path.join(DB_PATH, 'cwork.db')
+DB_FILE_PATH   = os.path.join(DB_PATH, 'app_data_base.db')
 

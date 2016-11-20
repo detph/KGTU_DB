@@ -1,7 +1,7 @@
-from Widgets.ListView import MYListView
+from Widgets.TableView import MYTableView
 
 
-class BaseUIList(MYListView):
+class BaseUIList(MYTableView):
     # SIGNALS
 
 
@@ -18,7 +18,15 @@ class BaseUIList(MYListView):
         pass
 
     def __init_Parameters(self):
-        pass
+        self.setSelectionBehavior(self.SelectRows)
+        self.verticalHeader().setDefaultSectionSize(30)
+
+    def initColumnsParms(self):
+        self.setColumnWidth(0, 220)
+        self.hideColumn(2)
+        self.hideColumn(3)
+        self.hideColumn(4)
+
 
 
 

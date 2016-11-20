@@ -16,6 +16,7 @@ class BaseUIList(MYTableView):
 
 
 
+
     def __init_Parameters(self, model):
         self.setSelectionBehavior(self.SelectRows)
         self.setSelectionMode(self.SingleSelection)

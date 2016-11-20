@@ -72,7 +72,7 @@ class Application(QApplication):
     def selectCalendarDate(self):
         date = self.window.calendar.selectedDate()
         self.currentDateTime.setDate(date)
-        self.window.dateTimeEdit.setDateTime(self.currentDateTime)
+        self.window.dateTimeEdit.__tool_SetDateTime(self.currentDateTime)
         self.model.setFilter("date(datetime) == date('" + str(date.toPyDate()) + "')")
 
     def selectNote(self):
@@ -82,7 +82,7 @@ class Application(QApplication):
             self.model.index(rowNumb, 0).data(Qt.DisplayRole)[0:16],
             "yyyy-MM-dd hh:mm"
         )
-        self.window.dateTimeEdit.setDateTime(self.currentDateTime)
+        self.window.dateTimeEdit.__tool_SetDateTime(self.currentDateTime)
         self.showNoteItems(
             self.model.record(rowNumb).value(1),
             self.model.record(rowNumb).value(3)

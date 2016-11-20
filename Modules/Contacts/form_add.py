@@ -20,17 +20,12 @@ class FormAdd(MYDialog):
             title='Добавление контакта',
             parent=parent
         )
-        self.attribs = BaseUIAttribs(type='editable')
+        self.attribs = BaseUIAttribs(BaseUIAttribs.Editable)
         self.main_layout.addWidget(self.attribs)
-        self.setFixedSize(330, 120)
+        self.setFixedSize(330, 150)
 
 
-    def accept(self):
-        name = self.attribs.fio.text()
-        phone = self.attribs.phone.text()
-        self.attribs.dataStructure.setFIO(name)
-        self.attribs.dataStructure.setPhone(phone)
-        super(FormAdd, self).accept()
+
 
 
 

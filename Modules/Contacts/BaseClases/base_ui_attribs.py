@@ -1,6 +1,6 @@
 # Qt Types
 
-from Modules.Contacts.BaseClases.data_structure import ContactsStructure
+from Modules.Contacts.BaseClases.data_structure import Structure
 
 # WIDGETS
 from PyQt5.QtWidgets import QFormLayout
@@ -8,6 +8,7 @@ from PyQt5.QtWidgets import QHBoxLayout
 from Widgets.LineEdit import MYLineEdit
 from Widgets.Label import MYLabel
 from Widgets.Widget import MYWidget
+from Widgets.ComboBox import MYComboBox
 
 from PyQt5.QtGui     import QDoubleValidator
 
@@ -20,10 +21,27 @@ from PyQt5.QtGui     import QDoubleValidator
 
 class BaseUIAttribs(MYWidget):
     """
-    Базовый класс, обеспичивающий GUI.
+    Базовый класс, обеспечивающий GUI
+    для атрибутов "Контакта".
     """
 
-    def __init__(self, type='editable', parent=None):
+    # роль
+    Editable = 0
+    NotEditable = 1
+
+    def __init__(self, role=Editable, parent=None):
+        """
+        Параметр role должен принимать одно из
+        двух значений:
+            - Editable    - редактируемый GUI
+            - NotEditable - не редактируемый GUI
+
+        :param role: <BaseUIAttribs.Editable, BaseUIAttribs.NotEditable>
+        :param parent: <QtWidget> : Qt родитель
+        """
+
+
+
         super(BaseUIAttribs, self).__init__(
             parent=parent,
             layout='V',
@@ -31,7 +49,7 @@ class BaseUIAttribs(MYWidget):
             layout_spacing=10
         )
 
-        self.__init_Attributes(type)
+        self.__init_Attributes(role)
         self.__init_Parameters()
         self.__init_Layouting()
 
@@ -39,33 +57,39 @@ class BaseUIAttribs(MYWidget):
 
 
     # inits
-    def __init_Attributes(self, type):
-        self.__structure = ContactsStructure()
+    def __init_Attributes(self, role):
+        self.__structure = Structure()
 
-        self.__uitype = type
+        self.__uitype = role
 
         self.btns_layout = QHBoxLayout()
         self.__form_layout = QFormLayout()
 
         self.__lbl_fio   = MYLabel(parent=self, bold=True, text='ФИО:')
-        self.__lbl_phone  = MYLabel(parent=self, bold=True, text='Телефон:')
+        self.__lbl_phone = MYLabel(parent=self, bold=True, text='Телефон:')
+        self.__lbl_group = MYLabel(parent=self, bold=True, text='Группа:')
 
-
-        if self.__uitype == 'editable':
-            self.fio   = MYLineEdit(parent=self)
-            self.phone = MYLineEdit(self)
-
+        if self.__uitype == self.Editable:
+            self.__fio   = MYLineEdit(parent=self)
+            self.__phone = MYLineEdit(self)
+            self.__group = MYComboBox(parent=self)
         else:
-            self.fio   = MYLabel(parent=self)
-            self.phone = MYLabel(parent=self)
+            self.__fio   = MYLabel(parent=self)
+            self.__phone = MYLabel(parent=self)
+            self.__group = MYLabel(parent=self)
 
     def __init_Parameters(self):
         self.__form_layout.setContentsMargins(0, 0, 0, 0)
         self.__form_layout.setSpacing(5)
 
-        if self.__uitype == 'editable':
+        if self.__uitype == self.Editable:
+            self.__group.addItem('Работа')
+            self.__group.addItem('Личное')
             validator = QDoubleValidator(0, 15, 2, self)
-            self.phone.setValidator(validator)
+            # mask = '00000000000'
+            self.__phone.setValidator(validator)
+            self.__phone.setMaxLength(11)
+            # self.__phone.setInputMask(mask)
 
     def __init_Layouting(self):
 
@@ -77,38 +101,41 @@ class BaseUIAttribs(MYWidget):
 
         self.__form_layout.setWidget(0, AS_LABEL, self.__lbl_fio)
         self.__form_layout.setWidget(1, AS_LABEL, self.__lbl_phone)
+        self.__form_layout.setWidget(2, AS_LABEL, self.__lbl_group)
 
-        self.__form_layout.setWidget(0, AS_FIELD, self.fio)
-        self.__form_layout.setWidget(1, AS_FIELD, self.phone)
+        self.__form_layout.setWidget(0, AS_FIELD, self.__fio)
+        self.__form_layout.setWidget(1, AS_FIELD, self.__phone)
+        self.__form_layout.setWidget(2, AS_FIELD, self.__group)
 
 
 
 
-    # PROPERTY
+
     @property
     def dataStructure(self):
+        self.__structure.setFIO(self.__fio.text())
+        self.__structure.setPhone(self.__phone.text())
+        if self.__uitype == self.Editable:
+            self.__structure.setGroup(self.__group.currentText())
+        else:
+            self.__structure.setGroup(self.__group.text())
         return self.__structure
-
-
 
 
     # METHODS
     def setDataStructure(self, struct):
-        self.setFIO(struct.FIO)
-        self.setPhone(struct.phone)
+        self.__structure = struct
 
-    def setFIO(self, FIO):
-        FIO = str(FIO)
-        self.__structure.setFIO(FIO)
-        self.fio.setText(FIO)
+        self.__fio.setText(struct.FIO)
+        self.__phone.setText(struct.phone)
 
-    def setPhone(self, phone):
-        """
-        :param phone: <int>
-        """
+        if self.__uitype == self.Editable:
+            self.__group.setCurrentText(struct.group)
+        else:
+            self.__group.setText(struct.group)
 
-        self.__structure.setPhone(phone)
-        self.phone.setText(str(phone))
+
+
 
 
 
@@ -121,12 +148,13 @@ if __name__ == '__main__':
     from PyQt5.QtWidgets import QApplication
     app = QApplication([])
 
-    struct = ContactsStructure(
+    struct = Structure(
         fio='Григорян Олегсей Костикович',
-        phone=891148897
+        phone='891148897',
+        group='Личное'
     )
 
-    win = BaseUIAttribs("")
+    win = BaseUIAttribs(BaseUIAttribs.NotEditable)
     win.setDataStructure(struct)
 
     win.show()

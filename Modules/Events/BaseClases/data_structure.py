@@ -1,44 +1,41 @@
 
 #Qt Types
-from PyQt5.QtCore import QTime
 from PyQt5.QtCore import QDate
 from PyQt5.QtCore import QDateTime
+from PyQt5.QtCore import QTime
 
-# DB type convertor
-from type_converter import TypeConverter
-
-
+from DataBase.datetime_converter import DateTimeConverter
 
 
-
-
-class AppointmentStructure(object):
+class Structure(object):
     """
     Данный класс хранит структуру данных
-    для работы с "Делом" (Appointment).
+    для работы со "Встречей".
 
     Property:
-            FIO(): <str> : возвращает ФИО
-           role(): <str> : возвращает тип встречи
-          qDate(): <QDate> : возвращает Qt дату
-          qTime(): <QTime> : возвращает Qt время
-        strTime(): <str>: возвращает строку времени
-        strDate(): <str>: возвращает строку даты
-      qDateTime(): <QDateTime>: возвращает Qt времядату
-     dbDateTime(): <DBDateTime>: возвращает БД времядату
-    description(): <str> : возвращает описание встречи
+            FIO: <str> : ФИО
+          place: <str> : место встречи
+          state: <bool> : состояние встречи
+          qDate: <QDate> : Qt дата
+          qTime: <QTime> : Qt время
+        strTime: <str>: время в виде строки
+        strDate: <str>: дата в виде строки
+      qDateTime: <QDateTime>: Qt времядата
+     dbDateTime: <DBDateTime>: БД времядата
+    description: <str> :  описание встречи
     """
 
 
     def __init__(
             self,
             fio=None,
-            role=None,
+            place=None,
             descript=None,
             qdate_qtime=None,
             q_time=None,
             q_datetime=None,
-            db_datetime=None
+            db_datetime=None,
+            state=None
     ):
         """
         Для определения даты и времени возможно
@@ -52,7 +49,7 @@ class AppointmentStructure(object):
 
 
         :param fio: <str> : ФИО
-        :param role: <str> : назначение встречи
+        :param place: <str> : место встречи
         :param descript: <str> : описание дела
         :param qdate_qtime: <tuple(QDate, QTime)> : Qt дата и Qt время
         :param q_datetime: <QDateTime> : Qt время и дата
@@ -62,8 +59,9 @@ class AppointmentStructure(object):
         self.__init_Attributes()
         self.__init_Parameters(
             fio=fio ,
-            role=role,
+            place=place,
             descript=descript,
+            state=state,
             qdate_qtime=qdate_qtime,
             q_time=q_time,
             q_datetime=q_datetime,
@@ -75,20 +73,21 @@ class AppointmentStructure(object):
 
     # inits
     def __init_Attributes(self):
-        super(AppointmentStructure, self).__init__()
+        super(Structure, self).__init__()
 
         self.__fio = ''
-        self.__role = ''
+        self.__place = ''
         self.__descript = ''
+        self.__state = 0
         self.__datetime = QDateTime()
         self.__db_datetime = ''
 
-    def __init_Parameters(self, fio, role, descript, qdate_qtime, q_time, q_datetime, db_datetime):
+    def __init_Parameters(self, fio, place, descript, state, qdate_qtime, q_time, q_datetime, db_datetime):
         if fio: self.setFIO(fio)
-        if role: self.setRole(role)
+        if place: self.setPlace(place)
         if descript: self.setDescription(descript)
-        if qdate_qtime:
-            self.setDate(qdate_qtime[0], qdate_qtime[1])
+        if state: self.setState(state)
+        if qdate_qtime: self.setDate(qdate_qtime[0], qdate_qtime[1])
         else:
             if q_datetime:
                 self.setQDateTime(q_datetime)
@@ -108,9 +107,9 @@ class AppointmentStructure(object):
             return None
 
     @property
-    def role(self):
+    def place(self):
         try:
-            return self.__role
+            return self.__place
         except:
             return None
 
@@ -118,6 +117,13 @@ class AppointmentStructure(object):
     def description(self):
         try:
             return self.__descript
+        except:
+            return None
+
+    @property
+    def state(self):
+        try:
+            return self.__state
         except:
             return None
 
@@ -163,7 +169,20 @@ class AppointmentStructure(object):
         except:
             return None
 
-
+    @property
+    def asFieldsForRecord(self):
+        """
+        Список значений для таблицы БД
+        :return: list
+        """
+        vals = [
+            self.FIO,
+            self.place,
+            self.dbDateTime,
+            self.description,
+            self.state
+        ]
+        return vals
 
 
 
@@ -172,17 +191,20 @@ class AppointmentStructure(object):
         FIO = str(FIO)
         self.__fio = FIO
 
-    def setRole(self, role):
+    def setPlace(self, place):
         """
-        :param role: <str> : назначение дела
+        :param place: <str> : место встречи
         """
 
-        role = str(role)
-        self.__role = role
+        place = str(place)
+        self.__place = place
 
     def setDescription(self, text=''):
         text = str(text)
         self.__descript = text
+
+    def setState(self, state=0):
+        self.__state = state
 
     def setDate(self, qdate, qtime):
         """
@@ -192,15 +214,15 @@ class AppointmentStructure(object):
 
         self.__datetime.setDate(qdate)
         self.__datetime.setTime(qtime)
-        self.__db_datetime = TypeConverter.QDateTimeToDbDateTime(self, self.__datetime)
+        self.__db_datetime = DateTimeConverter.qtToDb(self, self.__datetime)
 
     def setQDateTime(self, qdatetime):
         self.__datetime = qdatetime
-        self.__db_datetime = TypeConverter.QDateTimeToDbDateTime(self, self.__datetime)
+        self.__db_datetime = DateTimeConverter.qtToDb(self, self.__datetime)
 
     def setDBDateTime(self, db_datetime):
         self.__db_datetime = db_datetime
-        self.__datetime = TypeConverter.DbDateTimeToQDateTime(self, self.__db_datetime)
+        self.__datetime = DateTimeConverter.dbToQt(self, self.__db_datetime)
 
 
 
@@ -219,11 +241,12 @@ if __name__ == '__main__':
     role = 'Собеседование'
     descript = 'Встреча в метрополисе'
 
-    struct = AppointmentStructure(
+    struct = Structure(
         fio=fio,
-        role=role,
+        place=role,
         descript=descript,
-        qdate_qtime=(date, time)
+        #qdate_qtime=(date, time)
+        db_datetime='2016-09-08 20:30:00'
     )
 
 

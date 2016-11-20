@@ -5,12 +5,10 @@ from Widgets.MainWindow import MYMainWindow
 from Modules.Contacts.form_add import FormAdd
 from Modules.Contacts.form_edit import FormEdit
 from Modules.Contacts.form_view import FormView
-from Modules.DBModelAccess.moduleClasses import QBestSqlTableModel
+from Modules.Contacts.BaseClases.model import Model
 from Modules.Contacts.BaseClases.base_ui_list import BaseUIList
 from PyQt5.QtGui import QIcon
 from icons import ICON
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QDataWidgetMapper
 
 
 
@@ -21,7 +19,7 @@ from PyQt5.QtWidgets import QDataWidgetMapper
 class Contacts(MYMainWindow):
 
 
-    def __init__(self):
+    def __init__(self, DB):
         super(Contacts, self).__init__(
             window_size=(720, 480),
             title='Контакты',
@@ -31,7 +29,7 @@ class Contacts(MYMainWindow):
             toolbar_section='Top'
         )
 
-        self.__init_Attributes()
+        self.__init_Attributes(DB)
         self.__init_Parameters()
         self.__init_Layouting()
         self.__init_Connects()
@@ -40,10 +38,9 @@ class Contacts(MYMainWindow):
 
 
     #inits
-    def __init_Attributes(self):
-        self.__model = QBestSqlTableModel(table='contacts')
+    def __init_Attributes(self, DB):
+        self.__model = Model(DB)
         self.__list = BaseUIList(parent=self, model=self.__model)
-        self.__mapper = QDataWidgetMapper()
         self.__form_view = FormView(self)
         self.__form_add  = FormAdd(self)
         self.__form_edit = FormEdit(self)
@@ -52,16 +49,12 @@ class Contacts(MYMainWindow):
         self.resize(300, 620)
         self.__model.setHeaders(["ФИО"])
         self.__list.setModel(self.__model)
-        self.__mapper.setModel(self.__model)
-        self.__mapper.addMapping(self.__form_view.fio, 0)
-        self.__mapper.addMapping(self.__form_view.phone, 2)
 
     def __init_Layouting(self):
         self.cwidget.main_layout.addWidget(self.__form_view)
         self.cwidget.main_layout.addWidget(self.__list)
     
     def __init_Connects(self):
-        self.__mapper = QDataWidgetMapper()
         self.__form_view.btn_edit.clicked.connect(self.__tool_OpenEditForm)
         self.__form_edit.accepted.connect(self.__tool_EditContact)
         self.__form_view.btn_remove.clicked.connect(self.__tool_RemoveCurrentContact)
@@ -81,30 +74,23 @@ class Contacts(MYMainWindow):
     # class tool
     def __tool_LoadAttribsToViewForm(self, index):
         row = index.row()
-        record = self.__model.record(row)
-        FIO = record.value(0)
-        phone = record.value(2)
-        self.__form_view.setPhone(phone)
-        self.__form_view.setFIO(FIO)
+        structure = self.__model.getStructure(row)
+        self.__form_view.setDataStructure(structure)
 
     def __tool_EditContact(self):
         index = self.__list.selectedIndexes()
         if index:
             index = index[0]
             row = index.row()
-        new_name = self.__form_edit.attribs.dataStructure.FIO
-        new_phone = self.__form_edit.attribs.dataStructure.phone
-        # print([new_name, '', new_phone])
-        self.__model.editRecord(row, [new_name, '', new_phone])
+        new_structure = self.__form_edit.attribs.dataStructure
+        # print(new_structure.FIO)
+        # print(new_structure.phone)
+        self.__model.editRecord(data_structure=new_structure, row=row)
         self.__tool_LoadAttribsToViewForm(index)
 
     def __tool_AddNewContact(self):
-        index = self.__list.selectedIndexes()
-        if index: index = index[0]
-        new_name = self.__form_add.attribs.dataStructure.FIO
-        new_phone = self.__form_add.attribs.dataStructure.phone
-        # print([new_name, '', new_phone])
-        self.__model.addRecord([new_name, '', new_phone])
+        structure = self.__form_add.attribs.dataStructure
+        self.__model.addRecord(data_structure=structure)
 
     def __tool_OpenEditForm(self):
         data_structure = self.__form_view.dataStructure
@@ -214,13 +200,3 @@ class Contacts(MYMainWindow):
 
         for i in range(40):
             self.__model.addRecord([names[i], '', phones[i]])
-
-
-
-
-if __name__ == '__main__':
-    from PyQt5.QtWidgets import QApplication
-    app = QApplication([])
-    win = Contacts()
-    win.show()
-    app.exec_()

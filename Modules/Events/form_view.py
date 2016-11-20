@@ -3,7 +3,7 @@
 from PyQt5.QtGui import QIcon
 from Widgets.PushButton import MYPushButton
 from icons import ICON
-from Modules.Appointments.BaseClases.base_ui_attribs import BaseUIAttribs
+from Modules.Events.BaseClases.base_ui_attribs import BaseUIAttribs
 
 
 
@@ -11,8 +11,12 @@ from Modules.Appointments.BaseClases.base_ui_attribs import BaseUIAttribs
 
 class FormView(BaseUIAttribs):
 
-    def __init__(self, parent=None):
-        super(FormView, self).__init__(parent=parent, type='nonedit')
+    def __init__(self, DB, parent=None):
+        super(FormView, self).__init__(
+            parent=parent,
+            role=self.NotEditable,
+            DB=DB
+        )
         self.btn_edit = MYPushButton(parent=self)
         self.btn_remove = MYPushButton(parent=self)
 

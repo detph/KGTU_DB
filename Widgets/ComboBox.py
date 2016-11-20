@@ -3,6 +3,7 @@
 # vim: set fileencoding = utf-8:
 
 from PyQt5.QtWidgets import QComboBox
+from PyQt5.QtCore import Qt
 
 from parameters import ENABLE_STYLES
 from style import STYLE

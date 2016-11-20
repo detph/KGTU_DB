@@ -12,7 +12,7 @@ from Modules.Contacts.BaseClases.base_ui_attribs import BaseUIAttribs
 class FormView(BaseUIAttribs):
 
     def __init__(self, parent=None):
-        super(FormView, self).__init__(parent=parent, type='nonedit')
+        super(FormView, self).__init__(parent=parent, role='nonedit')
         self.btn_edit = MYPushButton(parent=self)
         self.btn_remove = MYPushButton(parent=self)
 
