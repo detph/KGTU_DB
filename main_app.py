@@ -6,7 +6,7 @@ from paths import DB_FILE_PATH
 # МОДУЛИ
 from Modules.Contacts.main import Contacts
 from Modules.Events.main import Events
-
+from Modules.Notes.main import Notes
 
 
 
@@ -23,12 +23,13 @@ DATABASE.setDatabaseName(DB_FILE_PATH)
 
 if DATABASE.open():
 
-    # mdl_Contacts = Contacts(DB=DATABASE)
-    mdl_Events = Events(DATABASE)
+    mdl_Notes = Notes(DB=DATABASE)
+    mdl_Contacts = Contacts(DB=DATABASE)
+    mdl_Events = Events(DB=DATABASE)
 
-    mdl_Events.show()
+    # mdl_Events.show()
     # mdl_Contacts.show()
-
+    mdl_Notes.show()
 
 
     sys.exit(APP.exec_())

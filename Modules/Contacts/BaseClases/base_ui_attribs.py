@@ -1,3 +1,4 @@
+
 # Qt Types
 
 from Modules.Contacts.BaseClases.data_structure import Structure
@@ -22,7 +23,7 @@ from PyQt5.QtGui     import QDoubleValidator
 class BaseUIAttribs(MYWidget):
     """
     Базовый класс, обеспечивающий GUI
-    для атрибутов "Контакта".
+    для атрибутов "Заметки".
     """
 
     # роль
@@ -113,12 +114,12 @@ class BaseUIAttribs(MYWidget):
 
     @property
     def dataStructure(self):
-        self.__structure.setFIO(self.__fio.text())
-        self.__structure.setPhone(self.__phone.text())
+        self.__structure.setTheme(self.__fio.text())
+        self.__structure.setDescription(self.__phone.text())
         if self.__uitype == self.Editable:
-            self.__structure.setGroup(self.__group.currentText())
+            self.__structure.setQDateTime(self.__group.currentText())
         else:
-            self.__structure.setGroup(self.__group.text())
+            self.__structure.setQDateTime(self.__group.text())
         return self.__structure
 
 
@@ -159,4 +160,3 @@ if __name__ == '__main__':
 
     win.show()
     app.exec_()
-

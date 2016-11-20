@@ -15,7 +15,6 @@ class DBAccessModel(QSqlTableModel):
     TableEvents = 'events'
     TableContacts = 'contacts'
     TableDepartments = 'departments'
-    TableSupervisors = 'supervisors'
     TableTableSupervisorTasks = 'supervisors_tasks'
     TableNotes = 'notes'
 
@@ -38,7 +37,6 @@ class DBAccessModel(QSqlTableModel):
 
         self.setEditStrategy(self.OnRowChange)
         self.setTable(table)
-
 
 
     # METHODS
