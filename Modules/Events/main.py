@@ -10,7 +10,7 @@ from Modules.Events.BaseClases.base_ui_list import BaseUIList
 from Modules.Events.BaseClases.model import Model
 from PyQt5.QtGui import QIcon
 from icons import ICON
-
+from PyQt5.QtCore import QDateTime
 
 
 
@@ -18,6 +18,8 @@ from icons import ICON
 
 
 class Events(MYMainWindow):
+
+
 
     def __init__(self, DB):
         super(Events, self).__init__(
@@ -32,11 +34,18 @@ class Events(MYMainWindow):
         self.__init_Layouting()
         self.__init_Connects()
 
+
+
+
+
     # inits
     def __init_Attributes(self, DB):
-        self.__list_btn_layout = QHBoxLayout()
-        self.__btn_toogle = MYPushButton(parent=self)
-        self.__btn_remove_all = MYPushButton(parent=self)
+        self.__filters_layout = QHBoxLayout()
+        self.__filter_uspeshnie = MYPushButton(parent=self, text='Успешные')
+        self.__filter_nevipolnenie = MYPushButton(parent=self, text='Невыполненые')
+        self.__filter_future = MYPushButton(parent=self, text='Будущие')
+        self.__filter_bad = MYPushButton(parent=self, text='Неудавшиеся')
+        self.__filter_all = MYPushButton(parent=self, text='Все')
         self.__list_layout = QVBoxLayout()
         self.__model = Model(DB)
         self.__list = BaseUIList(parent=self)
@@ -45,26 +54,24 @@ class Events(MYMainWindow):
         self.__form_edit = FormEdit(DB, self)
 
     def __init_Parameters(self):
-        self.__btn_toogle.setCheckable(True)
         self.__list_layout.setSpacing(10)
-        self.__btn_toogle.setText('Невыполненные дела')
-        self.__btn_remove_all.setText('Удалить все')
-        self.__btn_remove_all.setIcon(QIcon(ICON.DEFAULT.remove()))
-        self.__btn_remove_all.hide()
         self.__list.setModel(self.__model)
         self.__list.initColumnsParms()
 
     def __init_Layouting(self):
         self.__list_layout.addWidget(self.__list)
-        self.__list_btn_layout.addWidget(self.__btn_toogle)
-        self.__list_btn_layout.addWidget(self.__btn_remove_all)
-        self.__list_layout.addLayout(self.__list_btn_layout)
+        self.__filters_layout.addWidget(self.__filter_all)
+        self.__filters_layout.addWidget(self.__filter_bad)
+        self.__filters_layout.addWidget(self.__filter_uspeshnie)
+        self.__filters_layout.addWidget(self.__filter_future)
+        self.__list_layout.addLayout(self.__filters_layout)
         self.cwidget.main_layout.addLayout(self.__list_layout)
         self.cwidget.main_layout.addWidget(self.__form_view)
 
     def __init_Connects(self):
-        self.__btn_toogle.clicked.connect(self.__tool_DoFilter)
-        self.__btn_remove_all.clicked.connect(self.__tool_RemoveOutstandingEvent)
+        self.__filter_uspeshnie.clicked.connect(self.__filter_GoodMiting)
+        self.__filter_bad.clicked.connect(self.__filter_BadMiting)
+        self.__filter_all.clicked.connect(self.__filter_AllRecords)
         self.__form_view.btn_edit.clicked.connect(self.__tool_OpenEditForm)
         self.__form_edit.accepted.connect(self.__tool_EditEvent)
         self.__form_view.btn_remove.clicked.connect(self.__tool_RemoveCurrentEvent)
@@ -75,17 +82,27 @@ class Events(MYMainWindow):
 
 
 
-    # class tool
-    def __tool_DoFilter(self):
-        state = self.__btn_toogle.isChecked()
-        if state:
-            self.__btn_remove_all.show()
-            self.__btn_toogle.setText('Все  дела')
-            self.__model.setDateTimeFilter(compare_sign='<')
-        else:
-            self.__btn_remove_all.hide()
-            self.__model.setFilter('')
 
+
+    # filters
+    def __filter_AllRecords(self):
+        self.__model.setFilter('')
+
+    def __filter_DateLessThenCurrent(self):
+        self.__model.setDateTimeFilter(compare_sign='<')
+
+    def __filter_GoodMiting(self):
+        self.__model.setFilter('state > 0')
+
+    def __filter_BadMiting(self):
+        current_date = str(QDateTime().currentDateTime().toPyDateTime())
+        self.__model.setFilter('state < 1 and datetime < datetime(' + current_date +')')
+
+
+
+
+
+    # class tool
     def __tool_LoadAttribsToViewForm(self, index):
         # try:
         row = index.row()
@@ -131,16 +148,3 @@ class Events(MYMainWindow):
                 self.__model.removeRecord(row)
         except:
             pass
-
-
-
-
-
-
-
-if __name__ == '__main__':
-    from PyQt5.QtWidgets import QApplication
-    app = QApplication([])
-    win = Events()
-    win.show()
-    app.exec_()

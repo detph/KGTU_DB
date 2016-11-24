@@ -20,6 +20,7 @@ class BaseUIList(MYTableView):
     def __init_Parameters(self):
         self.setSelectionBehavior(self.SelectRows)
         self.verticalHeader().setDefaultSectionSize(30)
+        self.setSortingEnabled(True)
 
     def initColumnsParms(self):
         self.setColumnWidth(0, 220)
