@@ -24,16 +24,13 @@ class Contacts(MYMainWindow):
             window_size=(720, 480),
             title='Контакты',
             layout='V',
-            layout_margins=[10, 10, 10, 10],
-            toolbar=True,
-            toolbar_section='Top'
+            layout_margins=[10, 10, 10, 10]
         )
 
         self.__init_Attributes(DB)
         self.__init_Parameters()
         self.__init_Layouting()
         self.__init_Connects()
-        self.__init_ToolbarActions()
         # self.fill()
 
 
@@ -60,13 +57,7 @@ class Contacts(MYMainWindow):
         self.__form_view.btn_remove.clicked.connect(self.__tool_RemoveCurrentContact)
         self.__form_add.accepted.connect(self.__tool_AddNewContact)
         self.__list.clicked.connect(self.__tool_LoadAttribsToViewForm)
-
-    def __init_ToolbarActions(self):
-        self.toolbar.addAction(
-            QIcon(ICON.DEFAULT.add()),
-            'Добавить новый контакт',
-            self.__tool_OpenAddForm
-        )
+        self.__form_view.btn_add.clicked.connect(self.__tool_OpenAddForm)
 
 
 
@@ -83,8 +74,6 @@ class Contacts(MYMainWindow):
             index = index[0]
             row = index.row()
         new_structure = self.__form_edit.attribs.dataStructure
-        # print(new_structure.FIO)
-        # print(new_structure.phone)
         self.__model.editRecord(data_structure=new_structure, row=row)
         self.__tool_LoadAttribsToViewForm(index)
 
@@ -94,14 +83,12 @@ class Contacts(MYMainWindow):
 
     def __tool_OpenEditForm(self):
         data_structure = self.__form_view.dataStructure
+        # print(data_structure.asFieldsForRecord)
         self.__form_edit.attribs.setDataStructure(data_structure)
         self.__form_edit.exec_()
     
     def __tool_OpenAddForm(self):
         self.__form_add.exec_()
-        
-    def __tool_RemoveSelectedContacts(self):
-        print('Selected contacs removed')
 
     def __tool_RemoveCurrentContact(self):
         index = self.__list.selectedIndexes()

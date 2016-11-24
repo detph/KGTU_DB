@@ -3,14 +3,14 @@
 from icons import ICON
 from PyQt5.QtGui import QIcon
 from Widgets.PushButton import MYPushButton
-from Modules.Notes.BaseClases.base_ui_attribs import BaseUIAttribs
+from Modules.Emloyees.BaseClases.base_ui_attribs import BaseUIAttribs
 
 
 
 
 class FormView(BaseUIAttribs):
-    def __init__(self, parent=None):
-        super(FormView, self).__init__(role=BaseUIAttribs.NotEditable)
+    def __init__(self, DB, parent=None):
+        super(FormView, self).__init__(DB=DB, role=BaseUIAttribs.NotEditable)
         if parent: self.setParent(parent)
         self.btn_add = MYPushButton(parent=self)
         self.btn_edit = MYPushButton(parent=self)

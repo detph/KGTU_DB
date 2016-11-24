@@ -17,12 +17,15 @@ class FormView(BaseUIAttribs):
             role=self.NotEditable,
             DB=DB
         )
+        self.btn_add = MYPushButton(parent=self)
         self.btn_edit = MYPushButton(parent=self)
         self.btn_remove = MYPushButton(parent=self)
 
+        self.btn_add.setIcon(QIcon(ICON.DEFAULT.add()))
         self.btn_edit.setIcon(QIcon(ICON.DEFAULT.edit()))
         self.btn_remove.setIcon(QIcon(ICON.DEFAULT.remove()))
 
+        self.btns_layout.addWidget(self.btn_add)
         self.btns_layout.addWidget(self.btn_edit)
         self.btns_layout.addWidget(self.btn_remove)
 

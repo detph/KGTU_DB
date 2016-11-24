@@ -46,7 +46,7 @@ class BaseUIAttribs(MYWidget):
         super(BaseUIAttribs, self).__init__(
             parent=parent,
             layout='V',
-            layout_margins=[10, 10, 10, 10],
+            layout_margins=[0, 0, 0, 0],
             layout_spacing=10
         )
 
@@ -114,12 +114,12 @@ class BaseUIAttribs(MYWidget):
 
     @property
     def dataStructure(self):
-        self.__structure.setTheme(self.__fio.text())
-        self.__structure.setDescription(self.__phone.text())
+        self.__structure.setFIO(self.__fio.text())
+        self.__structure.setPhone(self.__phone.text())
         if self.__uitype == self.Editable:
-            self.__structure.setQDateTime(self.__group.currentText())
+            self.__structure.setGroup(self.__group.currentText())
         else:
-            self.__structure.setQDateTime(self.__group.text())
+            self.__structure.setGroup(self.__group.text())
         return self.__structure
 
 

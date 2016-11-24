@@ -12,11 +12,14 @@ from PyQt5.QtCore import QDateTime
 class DBAccessModel(QSqlTableModel):
 
     # table names
-    TableEvents = 'events'
     TableContacts = 'contacts'
     TableDepartments = 'departments'
-    TableTableSupervisorTasks = 'supervisors_tasks'
+    TableEmployees = 'employees'
+    TableEmployeesTask = 'employees_task'
+    TableEvents = 'events'
     TableNotes = 'notes'
+    TablePosts = 'posts'
+    TableTableSupervisorTasks = 'supervisor_task'
 
 
     # record type

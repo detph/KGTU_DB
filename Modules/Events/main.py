@@ -24,16 +24,13 @@ class Events(MYMainWindow):
             window_size=(720, 480),
             title='Дела',
             layout='H',
-            layout_margins=[10, 10, 10, 10],
-            toolbar=True,
-            toolbar_section='Top'
+            layout_margins=[10, 10, 10, 10]
         )
 
         self.__init_Attributes(DB)
         self.__init_Parameters()
         self.__init_Layouting()
         self.__init_Connects()
-        self.__init_ToolbarActions()
 
     # inits
     def __init_Attributes(self, DB):
@@ -73,13 +70,7 @@ class Events(MYMainWindow):
         self.__form_view.btn_remove.clicked.connect(self.__tool_RemoveCurrentEvent)
         self.__form_add.accepted.connect(self.__tool_AddNewEvent)
         self.__list.clicked.connect(self.__tool_LoadAttribsToViewForm)
-
-    def __init_ToolbarActions(self):
-        self.toolbar.addAction(
-            QIcon(ICON.DEFAULT.add()),
-            'Добавить новое дело',
-            self.__tool_OpenAddForm
-        )
+        self.__form_view.btn_add.clicked.connect(self.__tool_OpenAddForm)
 
 
 

@@ -86,7 +86,7 @@ class BaseUIAttribs(MYWidget):
         self.__lbl_date = MYLabel(parent=self, bold=True, text='Дата:')
         self.__lbl_time = MYLabel(parent=self, bold=True, text='Время:')
 
-        self.__theme = MYLabel(parent=self, bold=True, text='')
+        self.__theme = MYLabel(parent=self, bold=False, text='')
         self.__descript = QTextBrowser(self)
         self.__date = DateLabel(parent=self)
         self.__time = TimeLabel(parent=self)
