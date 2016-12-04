@@ -27,7 +27,6 @@ class Contacts(MYWidget):
         self.__init_Parameters()
         self.__init_Layouting()
         self.__init_Connects()
-        # self.fill()
 
 
     #inits
