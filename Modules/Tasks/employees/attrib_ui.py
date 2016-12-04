@@ -43,7 +43,7 @@ class BaseUIAttribsEmp(MYWidget):
     # inits
     def __init_Attributes(self, role, DB):
         self.__structure = Structure()
-        self.__model_emp = ModelEmp(DB=DB)
+        self.__model_emp = ModelEmp(data_base=DB)
         self.__model_task = ModelTask(DB=DB, parent=self)
         self.__uitype = role
 
@@ -79,20 +79,20 @@ class BaseUIAttribsEmp(MYWidget):
         AS_FIELD = self.__form_layout.FieldRole
         AS_LABEL = self.__form_layout.LabelRole
 
-        self.main_layout.addLayout(self.__form_layout)
-        self.main_layout.addWidget(self.__descript)
-        self.main_layout.addLayout(self.btns_layout)
 
         self.__form_layout.setWidget(0, AS_LABEL, self.__lbl_name)
-        self.__form_layout.setWidget(1, AS_LABEL, self.__lbl_task)
-        self.__form_layout.setWidget(2, AS_LABEL, self.__lbl_date_start)
-        self.__form_layout.setWidget(3, AS_LABEL, self.__lbl_date_finish)
+        self.__form_layout.setWidget(1, AS_LABEL, self.__lbl_date_start)
+        self.__form_layout.setWidget(2, AS_LABEL, self.__lbl_date_finish)
+        self.__form_layout.setWidget(3, AS_LABEL, self.__lbl_task)
 
         self.__form_layout.setWidget(0, AS_FIELD, self.__name)
-        self.__form_layout.setWidget(1, AS_FIELD, self.__task)
-        self.__form_layout.setWidget(2, AS_FIELD, self.__date_start)
-        self.__form_layout.setWidget(3, AS_FIELD, self.__date_finish)
+        self.__form_layout.setWidget(1, AS_FIELD, self.__date_start)
+        self.__form_layout.setWidget(2, AS_FIELD, self.__date_finish)
+        self.__form_layout.setWidget(3, AS_FIELD, self.__task)
 
+        self.main_layout.addLayout(self.__form_layout)
+        self.main_layout.addLayout(self.btns_layout)
+        self.main_layout.addItem(self.main_spacer)
 
 
 
@@ -150,3 +150,23 @@ class BaseUIAttribsEmp(MYWidget):
         self.__tool_SetTask(struct.place)
         self.__tool_SetDateStart(struct.qDateStart)
         self.__tool_SetDateFinish(struct.qDateFinish)
+
+
+
+
+
+
+
+if __name__ == '__main__':
+    import sys
+    from PyQt5.QtWidgets import QApplication
+    from PyQt5.QtSql import QSqlDatabase
+    from paths import DB_FILE_PATH
+
+    app = QApplication([])
+    DATABASE = QSqlDatabase('QSQLITE')
+    DATABASE.setDatabaseName(DB_FILE_PATH)
+    DATABASE.open()
+    win = BaseUIAttribsEmp(DB=DATABASE, role=BaseUIAttribsEmp.Editable)
+    win.show()
+    sys.exit(app.exec_())

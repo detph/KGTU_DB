@@ -11,7 +11,7 @@ from Modules.Tasks.BaseClases.data_structure import Structure
 class ModelEmp(DBAccessModel):
     def __init__(self, data_base):
         super(ModelEmp, self).__init__(
-            table=DBAccessModel.TableEvents,
+            table=DBAccessModel.TableEmployeesTask,
             app_db=data_base
         )
         self.setHeaders(
