@@ -18,8 +18,8 @@ class DBAccessModel(QSqlTableModel):
     TableEmployeesTask = 'employees_task'
     TableEvents = 'events'
     TableNotes = 'notes'
-    TablePosts = 'posts'
-    TableTableSupervisorTasks = 'supervisor_task'
+    TableTasks = 'tasks'
+    TableTableDepartmentTasks = 'department_task'
 
 
     # record type
