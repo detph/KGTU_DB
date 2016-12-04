@@ -68,6 +68,7 @@ class DBAccessModel(QSqlTableModel):
         if row < 0:
             row = self.rowCount() - 1
         self.removeRow(row)
+        self.select()
 
     def getRecord(self, row=0, record_type=DictRecord):
         """

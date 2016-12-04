@@ -50,7 +50,7 @@ class Notes(MYWidget):
         self.main_layout.addWidget(self.__form_view)
 
     def __init_Connects(self):
-        self.__form_view.btn_edit.clicked.connect(self.__tool_OpenEditForm)
+        self.__list.doubleClicked.connect(self.__tool_OpenEditForm)
         self.__form_edit.accepted.connect(self.__tool_EditContact)
         self.__form_view.btn_remove.clicked.connect(self.__tool_RemoveCurrentContact)
         self.__form_add.accepted.connect(self.__tool_AddNewContact)
