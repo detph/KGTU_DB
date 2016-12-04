@@ -1,6 +1,6 @@
 
 
-from Widgets.MainWindow import MYMainWindow
+from Widgets.Widget import MYWidget
 
 from Modules.Notes.form_add import FormAdd
 from Modules.Notes.form_edit import FormEdit
@@ -16,17 +16,13 @@ from icons import ICON
 
 
 
-class Notes(MYMainWindow):
+class Notes(MYWidget):
 
 
     def __init__(self, DB):
         super(Notes, self).__init__(
-            window_size=(720, 480),
-            title='Заметки',
             layout='H',
             layout_margins=[10, 10, 10, 10],
-            toolbar=True,
-            toolbar_section='Top'
         )
 
         self.__init_Attributes(DB)
@@ -50,8 +46,8 @@ class Notes(MYMainWindow):
         self.__list.setModel(self.__model)
 
     def __init_Layouting(self):
-        self.cwidget.main_layout.addWidget(self.__list)
-        self.cwidget.main_layout.addWidget(self.__form_view)
+        self.main_layout.addWidget(self.__list)
+        self.main_layout.addWidget(self.__form_view)
 
     def __init_Connects(self):
         self.__form_view.btn_edit.clicked.connect(self.__tool_OpenEditForm)

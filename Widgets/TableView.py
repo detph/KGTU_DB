@@ -1,7 +1,3 @@
-# coding = utf-8
-# -*- coding: utf-8 -*-
-# vim: set fileencoding = utf-8:
-
 
 
 from PyQt5.QtWidgets import QTableView
@@ -20,5 +16,8 @@ class MYTableView(QTableView):
 
         self.setAlternatingRowColors(True)
         self.horizontalHeader().setStretchLastSection(True)
+        self.setSelectionMode(self.SingleSelection)
+        self.setSelectionBehavior(self.SelectRows)
+        self.setEditTriggers(self.NoEditTriggers)
 
         if ENABLE_STYLES: self.setStyleSheet(STYLE.ListWidget)

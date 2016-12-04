@@ -1,6 +1,6 @@
 
 
-from Widgets.MainWindow import MYMainWindow
+from Widgets.Widget import MYWidget
 
 from Modules.Emloyees.form_add import FormAdd
 from Modules.Emloyees.form_edit import FormEdit
@@ -15,12 +15,10 @@ from Modules.Emloyees.BaseClases.base_ui_list import BaseUIList
 
 
 
-class Employees(MYMainWindow):
+class Employees(MYWidget):
 
     def __init__(self, DB):
         super(Employees, self).__init__(
-            window_size=(720, 480),
-            title='Сотрудники',
             layout='V',
             layout_margins=[10, 10, 10, 10]
         )
@@ -45,8 +43,8 @@ class Employees(MYMainWindow):
         self.__list.setModel(self.__model)
 
     def __init_Layouting(self):
-        self.cwidget.main_layout.addWidget(self.__form_view)
-        self.cwidget.main_layout.addWidget(self.__list)
+        self.main_layout.addWidget(self.__form_view)
+        self.main_layout.addWidget(self.__list)
 
     def __init_Connects(self):
         self.__form_view.btn_edit.clicked.connect(self.__tool_OpenEditForm)

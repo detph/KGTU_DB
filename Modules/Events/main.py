@@ -1,5 +1,5 @@
 
-from Widgets.MainWindow import MYMainWindow
+from Widgets.Widget import MYWidget
 
 from Modules.Events.form_add import FormAdd
 from Modules.Events.form_edit import FormEdit
@@ -17,14 +17,12 @@ from PyQt5.QtCore import QDateTime
 
 
 
-class Events(MYMainWindow):
+class Events(MYWidget):
 
 
 
     def __init__(self, DB):
         super(Events, self).__init__(
-            window_size=(720, 480),
-            title='Дела',
             layout='H',
             layout_margins=[10, 10, 10, 10]
         )
@@ -62,17 +60,17 @@ class Events(MYMainWindow):
         self.__list_layout.addWidget(self.__list)
         self.__filters_layout.addWidget(self.__filter_all)
         self.__filters_layout.addWidget(self.__filter_bad)
+        self.__filters_layout.addWidget(self.__filter_nevipolnenie)
         self.__filters_layout.addWidget(self.__filter_uspeshnie)
         self.__filters_layout.addWidget(self.__filter_future)
         self.__list_layout.addLayout(self.__filters_layout)
-        self.cwidget.main_layout.addLayout(self.__list_layout)
-        self.cwidget.main_layout.addWidget(self.__form_view)
+        self.main_layout.addLayout(self.__list_layout)
+        self.main_layout.addWidget(self.__form_view)
 
     def __init_Connects(self):
         self.__filter_uspeshnie.clicked.connect(self.__filter_GoodMiting)
         self.__filter_bad.clicked.connect(self.__filter_BadMiting)
         self.__filter_all.clicked.connect(self.__filter_AllRecords)
-        self.__form_view.btn_edit.clicked.connect(self.__tool_OpenEditForm)
         self.__form_edit.accepted.connect(self.__tool_EditEvent)
         self.__form_view.btn_remove.clicked.connect(self.__tool_RemoveCurrentEvent)
         self.__form_add.accepted.connect(self.__tool_AddNewEvent)
