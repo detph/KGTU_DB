@@ -41,6 +41,8 @@ class Employees(MYWidget):
     def __init_Parameters(self):
         self.resize(500, 620)
         self.__list.setModel(self.__model)
+        self.__list.setColumnWidth(0, 250)
+        self.__list.setColumnWidth(1, 150)
 
     def __init_Layouting(self):
         self.main_layout.addWidget(self.__form_view)
