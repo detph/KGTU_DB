@@ -147,9 +147,9 @@ class BaseUIAttribsEmp(MYWidget):
     # METHODS
     def setDataStructure(self, struct):
         self.__tool_SetName(struct.name)
-        self.__tool_SetTask(struct.place)
-        self.__tool_SetDateStart(struct.qDateStart)
-        self.__tool_SetDateFinish(struct.qDateFinish)
+        self.__tool_SetTask(struct.task)
+        self.__tool_SetDateStart(struct.qDateTimeStart)
+        self.__tool_SetDateFinish(struct.qDateTimeFinish)
 
 
 

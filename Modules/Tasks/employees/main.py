@@ -17,6 +17,7 @@ class Employee(MYWidget):
         self.__init_Attributes(DB)
         self.__init_Parameters()
         self.__init_Layouting()
+        self.__init_Connects()
 
     def __init_Attributes(self, DB):
         self.__form_view = FormView(DB, self)
@@ -35,6 +36,46 @@ class Employee(MYWidget):
     def __init_Layouting(self):
         self.main_layout.addWidget(self.__list)
         self.main_layout.addWidget(self.__form_view)
+
+    def __init_Connects(self):
+        self.__list.clicked.connect(self.__load_attribs)
+        self.__list.doubleClicked.connect(self.__open_FormEdit)
+
+
+    def __load_attribs(self, index):
+        row = index.row()
+        data = self.__model.getStructure(row)
+        self.__form_view.setDataStructure(data)
+
+
+
+    def __open_FormEdit(self, index):
+        row = index.row()
+        data = self.__model.getStructure(row)
+        self.__form_edit.attribs.setDataStructure(data)
+        self.__form_edit.exec_()
+
+    def __open_FormAdd(self):
+        self.__form_add.exec_()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
