@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import QTabWidget
 
+from Modules.Tasks.main import Tasks
 from Widgets.MainWindow import MYMainWindow
 from Modules.Events.main import Events
 from Modules.Notes.main import Notes
@@ -33,12 +34,15 @@ class AppMainWindow(MYMainWindow):
         self.contacts = Contacts(DB=DB)
         self.notes = Notes(DB=DB)
         self.employees = Employees(DB=DB)
+        self.tasks = Tasks(DB=DB)
 
     def __init_Parameters(self):
         self.tabs.addTab(self.events, 'Дела')
         self.tabs.addTab(self.contacts, 'Контакты')
         self.tabs.addTab(self.notes, 'Заметки')
         self.tabs.addTab(self.employees, 'Сотрудники')
+        self.tabs.addTab(self.tasks, 'Поручения')
+
 
     def __init_Layouting(self):
         self.cwidget.main_layout.addWidget(self.tabs)

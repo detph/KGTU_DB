@@ -6,11 +6,11 @@ from Widgets.Widget import MYWidget
 from Modules.Tasks.employees.form_view import FormView
 
 
-class Employee(MYWidget):
+class EmployeeTask(MYWidget):
 
     #inits
     def __init__(self, DB):
-        super(Employee, self).__init__(
+        super(EmployeeTask, self).__init__(
             layout='H'
         )
 
@@ -110,6 +110,6 @@ if __name__ == '__main__':
     DATABASE = QSqlDatabase('QSQLITE')
     DATABASE.setDatabaseName(DB_FILE_PATH)
     DATABASE.open()
-    win = Employee(DATABASE)
+    win = EmployeeTask(DATABASE)
     win.show()
     sys.exit(app.exec_())
