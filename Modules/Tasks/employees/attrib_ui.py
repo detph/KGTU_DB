@@ -1,4 +1,6 @@
 # Qt Types
+from PyQt5.QtCore import QDateTime
+from PyQt5.QtCore import QTime
 
 from Modules.Tasks.BaseClases.data_structure import Structure
 from Modules.Tasks.BaseClases.date_label import DateLabel
@@ -137,10 +139,23 @@ class BaseUIAttribsEmp(MYWidget):
             dstart = self.__date_start.date
             dfinish = self.__date_finish.date
 
+        time = QTime(0, 0)
+        sdatetime = QDateTime()
+        sdatetime.setDate(dstart)
+        sdatetime.setTime(time)
+
+        fdatetime = QDateTime()
+        fdatetime.setDate(dfinish)
+        fdatetime.setTime(time)
+
+        # print('name = ', name)
+        # print('task = ', task)
+        # print('dstart = ', dstart)
+        # print('dfinish = ', dfinish)
         self.__structure.setName(name)
         self.__structure.setTask(task)
-        self.__structure.setQDateTimeStart(dstart)
-        self.__structure.setQDateTimeFinish(dfinish)
+        self.__structure.setQDateTimeStart(sdatetime)
+        self.__structure.setQDateTimeFinish(fdatetime)
         return self.__structure
 
 

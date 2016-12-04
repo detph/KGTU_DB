@@ -40,7 +40,10 @@ class Employee(MYWidget):
     def __init_Connects(self):
         self.__list.clicked.connect(self.__load_attribs)
         self.__list.doubleClicked.connect(self.__open_FormEdit)
-
+        self.__form_view.btn_add.clicked.connect(self.__open_FormAdd)
+        self.__form_view.btn_remove.clicked.connect(self.__remove)
+        self.__form_edit.accepted.connect(self.__edit)
+        self.__form_add.accepted.connect(self.__add)
 
     def __load_attribs(self, index):
         row = index.row()
@@ -59,7 +62,24 @@ class Employee(MYWidget):
         self.__form_add.exec_()
 
 
+    def __edit(self):
+        selected = self.__list.selectedIndexes()
+        if selected:
+            index = selected[0]
+            data = self.__form_edit.attribs.dataStructure
+            row = index.row()
+            self.__model.editRecord(data, row)
+            self.__load_attribs(index)
 
+    def __add(self):
+        data = self.__form_add.attribs.dataStructure
+        self.__model.addRecord(data)
+
+    def __remove(self):
+        selected = self.__list.selectedIndexes()
+        if selected:
+            index = selected[0]
+            self.__model.removeRecord(index.row())
 
 
 
