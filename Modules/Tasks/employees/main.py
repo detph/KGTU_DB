@@ -61,7 +61,6 @@ class EmployeeTask(MYWidget):
     def __open_FormAdd(self):
         self.__form_add.exec_()
 
-
     def __edit(self):
         selected = self.__list.selectedIndexes()
         if selected:

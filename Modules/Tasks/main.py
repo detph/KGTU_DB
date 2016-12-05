@@ -3,14 +3,12 @@ from PyQt5.QtWidgets import QTabWidget
 from Widgets.Widget import MYWidget
 from Modules.Tasks.employees.main import EmployeeTask
 from Modules.Tasks.departments.main import DepartmentTask
-
+from Modules.Tasks.global_task.main import GlobalTasks
 
 
 
 
 class Tasks(MYWidget):
-
-
 
     def __init__(self, DB):
         super(Tasks, self).__init__(
@@ -32,8 +30,10 @@ class Tasks(MYWidget):
         self.__tabs = QTabWidget(parent=self)
         self.__employee = EmployeeTask(DB)
         self.__department = DepartmentTask(DB)
+        self.__globaltasks = GlobalTasks(DB)
 
     def __init_Parameters(self):
+        self.__tabs.addTab(self.__globaltasks, 'Список')
         self.__tabs.addTab(self.__employee, 'Сотрудники')
         self.__tabs.addTab(self.__department, 'Отделы')
 
