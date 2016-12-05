@@ -5,7 +5,7 @@ from PyQt5.QtCore import QTime
 from Modules.Tasks.BaseClases.data_structure import Structure
 from Modules.Tasks.BaseClases.date_label import DateLabel
 from Modules.Tasks.BaseClases.model import ModelTask
-from Modules.Tasks.employees.model import ModelEmp
+from Modules.Tasks.departments.model import ModelDep
 
 # WIDGETS
 from PyQt5.QtWidgets import QFormLayout
@@ -21,14 +21,14 @@ from Widgets.Widget import MYWidget
 
 
 
-class BaseUIAttribsEmp(MYWidget):
+class BaseUIAttribsDep(MYWidget):
 
     # роль
     Editable = 0
     NotEditable = 1
 
     def __init__(self, DB, role=Editable, parent=None):
-        super(BaseUIAttribsEmp, self).__init__(
+        super(BaseUIAttribsDep, self).__init__(
             parent=parent,
             layout='V',
             layout_margins=[0, 0, 0, 0],
@@ -45,14 +45,14 @@ class BaseUIAttribsEmp(MYWidget):
     # inits
     def __init_Attributes(self, role, DB):
         self.__structure = Structure()
-        self.__model_emp = ModelEmp(data_base=DB)
+        self.__model_dep = ModelDep(data_base=DB)
         self.__model_task = ModelTask(DB=DB, parent=self)
         self.__uitype = role
 
         self.btns_layout = QHBoxLayout()
         self.__form_layout = QFormLayout()
 
-        self.__lbl_name = MYLabel(parent=self, bold=True, text='ФИО:')
+        self.__lbl_name = MYLabel(parent=self, bold=True, text='Отдел:')
         self.__lbl_task = MYLabel(parent=self, bold=True, text='Поручение:')
         self.__lbl_date_start = MYLabel(parent=self, bold=True, text='Дата начала:')
         self.__lbl_date_finish = MYLabel(parent=self, bold=True, text='Дата отчёта:')
@@ -73,7 +73,7 @@ class BaseUIAttribsEmp(MYWidget):
         self.__form_layout.setSpacing(5)
 
         if self.__uitype == self.Editable:
-            self.__name.setModel(self.__model_emp)
+            self.__name.setModel(self.__model_dep)
             self.__task.setModel(self.__model_task)
 
     def __init_Layouting(self):
@@ -148,6 +148,10 @@ class BaseUIAttribsEmp(MYWidget):
         fdatetime.setDate(dfinish)
         fdatetime.setTime(time)
 
+        # print('name = ', name)
+        # print('task = ', task)
+        # print('dstart = ', dstart)
+        # print('dfinish = ', dfinish)
         self.__structure.setName(name)
         self.__structure.setTask(task)
         self.__structure.setQDateTimeStart(sdatetime)
@@ -164,7 +168,7 @@ class BaseUIAttribsEmp(MYWidget):
 
 
     def updateModel(self):
-        self.__model_emp.select()
+        self.__model_dep.select()
         self.__model_task.select()
 
 
@@ -180,6 +184,6 @@ if __name__ == '__main__':
     DATABASE = QSqlDatabase('QSQLITE')
     DATABASE.setDatabaseName(DB_FILE_PATH)
     DATABASE.open()
-    win = BaseUIAttribsEmp(DB=DATABASE, role=BaseUIAttribsEmp.Editable)
+    win = BaseUIAttribsDep(DB=DATABASE, role=BaseUIAttribsDep.Editable)
     win.show()
     sys.exit(app.exec_())
