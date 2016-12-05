@@ -19,7 +19,7 @@ class DBAccessModel(QSqlTableModel):
     TableEvents = 'events'
     TableNotes = 'notes'
     TableTasks = 'tasks'
-    TableTableDepartmentTasks = 'department_task'
+    TableDepartmentTasks = 'department_task'
 
 
     # record type

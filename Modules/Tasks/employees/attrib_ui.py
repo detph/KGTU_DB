@@ -148,10 +148,6 @@ class BaseUIAttribsEmp(MYWidget):
         fdatetime.setDate(dfinish)
         fdatetime.setTime(time)
 
-        # print('name = ', name)
-        # print('task = ', task)
-        # print('dstart = ', dstart)
-        # print('dfinish = ', dfinish)
         self.__structure.setName(name)
         self.__structure.setTask(task)
         self.__structure.setQDateTimeStart(sdatetime)

@@ -1,6 +1,6 @@
 from Modules.Tasks.employees.form_add import FormAdd
 from Modules.Tasks.employees.form_edit import FormEdit
-from Modules.Tasks.employees.model import ModelEmp
+from Modules.Tasks.employees.model import ModelEmpTask
 from Widgets.TableView import MYTableView
 from Widgets.Widget import MYWidget
 from Modules.Tasks.employees.form_view import FormView
@@ -24,7 +24,7 @@ class EmployeeTask(MYWidget):
         self.__form_add = FormAdd(DB, self)
         self.__form_edit = FormEdit(DB, self)
 
-        self.__model = ModelEmp(data_base=DB)
+        self.__model = ModelEmpTask(data_base=DB)
         self.__list = MYTableView()
 
     def __init_Parameters(self):

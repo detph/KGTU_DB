@@ -5,12 +5,18 @@ from Modules.Tasks.BaseClases.data_structure import Structure
 
 
 
-
-
-
 class ModelEmp(DBAccessModel):
     def __init__(self, data_base):
         super(ModelEmp, self).__init__(
+            table=DBAccessModel.TableEmployees,
+            app_db=data_base
+        )
+
+
+
+class ModelEmpTask(DBAccessModel):
+    def __init__(self, data_base):
+        super(ModelEmpTask, self).__init__(
             table=DBAccessModel.TableEmployeesTask,
             app_db=data_base
         )
@@ -31,8 +37,8 @@ class ModelEmp(DBAccessModel):
 
     def addRecord(self, data_structure, row=0):
         values = data_structure.asFieldsForRecord
-        super(ModelEmp, self).addRecord(fields=values, row=row)
+        super(ModelEmpTask, self).addRecord(fields=values, row=row)
 
     def editRecord(self, data_structure, row=0):
         values = data_structure.asFieldsForRecord
-        super(ModelEmp, self).editRecord(fields=values, row=row)
+        super(ModelEmpTask, self).editRecord(fields=values, row=row)

@@ -40,7 +40,6 @@ class Events(MYWidget):
     def __init_Attributes(self, DB):
         self.__filters_layout = QHBoxLayout()
         self.__filter_uspeshnie = MYPushButton(parent=self, text='Успешные')
-        self.__filter_nevipolnenie = MYPushButton(parent=self, text='Невыполненые')
         self.__filter_future = MYPushButton(parent=self, text='Будущие')
         self.__filter_bad = MYPushButton(parent=self, text='Неудавшиеся')
         self.__filter_all = MYPushButton(parent=self, text='Все')
@@ -60,7 +59,6 @@ class Events(MYWidget):
         self.__list_layout.addWidget(self.__list)
         self.__filters_layout.addWidget(self.__filter_all)
         self.__filters_layout.addWidget(self.__filter_bad)
-        self.__filters_layout.addWidget(self.__filter_nevipolnenie)
         self.__filters_layout.addWidget(self.__filter_uspeshnie)
         self.__filters_layout.addWidget(self.__filter_future)
         self.__list_layout.addLayout(self.__filters_layout)
