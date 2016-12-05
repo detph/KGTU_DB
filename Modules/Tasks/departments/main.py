@@ -57,12 +57,14 @@ class DepartmentTask(MYWidget):
 
 
     def __open_FormEdit(self, index):
+        self.__form_edit.attribs.updateModel()
         row = index.row()
         data = self.__model.getStructure(row)
         self.__form_edit.attribs.setDataStructure(data)
         self.__form_edit.exec_()
 
     def __open_FormAdd(self):
+        self.__form_add.attribs.updateModel()
         self.__form_add.exec_()
 
 

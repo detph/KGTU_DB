@@ -59,6 +59,7 @@ class EmployeeTask(MYWidget):
         self.__form_edit.exec_()
 
     def __open_FormAdd(self):
+        self.__form_add.updatesEnabled()
         self.__form_add.exec_()
 
     def __edit(self):
