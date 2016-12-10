@@ -73,6 +73,7 @@ class Events(MYWidget):
         self.__form_view.btn_remove.clicked.connect(self.__tool_RemoveCurrentEvent)
         self.__form_add.accepted.connect(self.__tool_AddNewEvent)
         self.__list.clicked.connect(self.__tool_LoadAttribsToViewForm)
+        self.__list.doubleClicked.connect(self.__tool_OpenEditForm)
         self.__form_view.btn_add.clicked.connect(self.__tool_OpenAddForm)
 
 

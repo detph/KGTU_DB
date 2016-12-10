@@ -7,6 +7,10 @@ from Widgets.PushButton import MYPushButton
 from Widgets.TableView import MYTableView
 from Widgets.Widget import MYWidget
 from icons import ICON
+from Modules.Tasks.BaseClases.model import ModelTask
+
+
+
 
 
 class GlobalTasks(MYWidget):
@@ -15,10 +19,7 @@ class GlobalTasks(MYWidget):
     def __init__(self, DB):
         super(GlobalTasks, self).__init__()
 
-        self.__model = DBAccessModel(
-            app_db=DB,
-            table=DBAccessModel.TableTasks
-        )
+        self.__model = ModelTask(DB=DB)
         self.__form_add = Form()
         self.__form_edit = Form()
 

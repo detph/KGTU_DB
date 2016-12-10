@@ -73,6 +73,8 @@ class BaseUIAttribsDep(MYWidget):
         self.__form_layout.setSpacing(5)
 
         if self.__uitype == self.Editable:
+            self.__date_start.setCalendarPopup(True)
+            self.__date_finish.setCalendarPopup(True)
             self.__name.setModel(self.__model_dep)
             self.__task.setModel(self.__model_task)
 

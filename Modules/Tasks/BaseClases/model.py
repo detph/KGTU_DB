@@ -13,3 +13,4 @@ class ModelTask(DBAccessModel):
             parent=parent,
             table=DBAccessModel.TableTasks
         )
+        self.setHeaders(["Список поручений"])

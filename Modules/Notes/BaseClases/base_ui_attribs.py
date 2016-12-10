@@ -92,6 +92,8 @@ class BaseUIAttribs(MYWidget):
         self.__time = TimeLabel(parent=self)
 
     def __init_Parameters(self):
+        if self.__uitype == self.Editable:
+            self.__date.setCalendarPopup(True)
         self.__form_layout.setContentsMargins(0, 0, 0, 0)
         self.__form_layout.setSpacing(5)
 
