@@ -1,5 +1,8 @@
+from PyQt5.QtWidgets import QHBoxLayout
+from PyQt5.QtWidgets import QVBoxLayout
 
-
+from Widgets.DateEdit import MYDateEdit
+from Widgets.PushButton import MYPushButton
 from Widgets.Widget import MYWidget
 
 from Modules.Notes.form_add import FormAdd
@@ -34,6 +37,11 @@ class Notes(MYWidget):
 
     #inits
     def __init_Attributes(self, DB):
+        self.__btn_all = MYPushButton(parent=self, text='Все')
+        self.__btn_today = MYPushButton(parent=self, text='На сегодня')
+        self.__date_filter = MYDateEdit(parent=self)
+        self.__layout_list = QVBoxLayout()
+        self.__layout_filters = QHBoxLayout()
         self.__model = Model(DB)
         self.__list = BaseUIList(parent=self, model=self.__model)
         self.__form_view = FormView(self)
@@ -46,7 +54,12 @@ class Notes(MYWidget):
         self.__list.setModel(self.__model)
 
     def __init_Layouting(self):
-        self.main_layout.addWidget(self.__list)
+        self.__layout_filters.addWidget(self.__btn_all)
+        self.__layout_filters.addWidget(self.__btn_today)
+        self.__layout_filters.addWidget(self.__date_filter)
+        self.__layout_list.addLayout(self.__layout_filters)
+        self.__layout_list.addWidget(self.__list)
+        self.main_layout.addLayout(self.__layout_list)
         self.main_layout.addWidget(self.__form_view)
 
     def __init_Connects(self):
