@@ -41,7 +41,7 @@ class Report():
 
     def showPreview(self):
         self.previewDialog = QPrintPreviewDialog(self.printer)
-        self.previewDialog.setMaximumSize(1500,1000)
+        self.previewDialog.setMaximumSize(1000,2000)
         self.previewDialog.paintRequested.connect(self.Print)
         self.previewDialog.exec()
         self.printed = True
@@ -69,7 +69,9 @@ class Report():
         self.Html += string
 
     def addTable(self,fields, rows):
-        self.Html += '<table border="2" style=" border-style:solid; border-color:black" cellspacing="0" cellpadding="6" width="100%">'
+        self.Html += '<table '
+        # self.Html += 'border="2" style=" border-style:solid; border-color:black'
+        self.Html += ' cellspacing="0" cellpadding="6" width="100%">'
 
         self.Html += "<thead><tr>"
         self.Html += "<th width='8%'><strong>№</strong></th>"
@@ -84,7 +86,8 @@ class Report():
             self.Html += "<tr>"
             self.Html += "<td align='center'>"+str(N)+"</td>"
             for item in row:
-                self.Html += "<td padding='5' align='center'>"+str(item)+"</td>"
+                self.Html += "<td"
+                self.Html += " padding='5' align='center'>"+str(item)+"</td>"
             self.Html += "</tr>"
 
 
@@ -124,4 +127,7 @@ class Report():
 
         # if not self.printed:
         self.document.print(self.printer)
+
+
+
 
