@@ -122,7 +122,6 @@ class Report():
 
         self.document.setHtml(self.Html)
 
-
         # if not self.printed:
         self.document.print(self.printer)
 
