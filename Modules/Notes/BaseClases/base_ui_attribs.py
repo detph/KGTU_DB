@@ -8,10 +8,12 @@ from Modules.Notes.BaseClases.time_label import TimeLabel
 # WIDGETS
 from PyQt5.QtWidgets import QFormLayout
 from PyQt5.QtWidgets import QHBoxLayout
+
+from Widgets.DateEdit import MYDateEdit
 from Widgets.LineEdit import MYLineEdit
 from Widgets.Label import MYLabel
+from Widgets.TimeEdit import MYTimeEdit
 from Widgets.Widget import MYWidget
-from PyQt5.QtWidgets import QTimeEdit, QDateEdit
 from PyQt5.QtWidgets import QTextEdit, QTextBrowser
 
 
@@ -75,8 +77,8 @@ class BaseUIAttribs(MYWidget):
 
         self.__theme   = MYLineEdit(parent=self)
         self.__descript = QTextEdit(self)
-        self.__date = QDateEdit(self)
-        self.__time = QTimeEdit(self)
+        self.__date = MYDateEdit(self)
+        self.__time = MYTimeEdit(self)
 
     def __init_NotEditableAttributes(self):
         self.btns_layout = QHBoxLayout()

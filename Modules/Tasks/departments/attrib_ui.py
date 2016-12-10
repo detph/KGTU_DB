@@ -12,6 +12,7 @@ from PyQt5.QtWidgets import QFormLayout
 from PyQt5.QtWidgets import QHBoxLayout
 from PyQt5.QtWidgets import QDateEdit
 from Widgets.ComboBox import MYComboBox
+from Widgets.DateEdit import MYDateEdit
 from Widgets.Label import MYLabel
 from Widgets.Widget import MYWidget
 
@@ -60,8 +61,8 @@ class BaseUIAttribsDep(MYWidget):
         if self.__uitype == self.Editable:
             self.__name = MYComboBox(parent=self)
             self.__task = MYComboBox(parent=self)
-            self.__date_start = QDateEdit(self)
-            self.__date_finish = QDateEdit(self)
+            self.__date_start = MYDateEdit(self)
+            self.__date_finish = MYDateEdit(self)
         else:
             self.__name = MYLabel(parent=self)
             self.__task = MYLabel(parent=self)

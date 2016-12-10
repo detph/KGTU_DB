@@ -10,8 +10,8 @@ from PyQt5.QtWidgets import QFormLayout
 from PyQt5.QtWidgets import QHBoxLayout
 from PyQt5.QtWidgets import QTextBrowser
 from PyQt5.QtWidgets import QTextEdit
-from PyQt5.QtWidgets import QTimeEdit
-from PyQt5.QtWidgets import QDateEdit
+from Widgets.TimeEdit import MYTimeEdit
+from Widgets.DateEdit import MYDateEdit
 from Widgets.LineEdit import MYLineEdit
 from Widgets.ComboBox import MYComboBox
 from Widgets.Label import MYLabel
@@ -64,8 +64,8 @@ class BaseUIAttribs(MYWidget):
 
         if self.__uitype == self.Editable:
             self.__fio_model = DBAccessModel(table=DBAccessModel.TableContacts, app_db=DB)
-            self.__time  = QTimeEdit(self)
-            self.__date  = QDateEdit(self)
+            self.__time  = MYTimeEdit(self)
+            self.__date  = MYDateEdit(self)
             self.__place  = MYLineEdit(parent=self)
             self.__fio   = MYComboBox(parent=self)
             self.__descript = QTextEdit(self)

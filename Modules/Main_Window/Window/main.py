@@ -16,7 +16,7 @@ class AppMainWindow(MYMainWindow):
 
     def __init__(self, DB):
         super(AppMainWindow, self).__init__(
-            window_size=(720, 480),
+            window_size=(1000, 600),
             title='Записная книжка',
             layout_margins=[0, 0, 0, 0]
         )
