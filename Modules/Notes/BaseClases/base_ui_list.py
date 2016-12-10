@@ -22,7 +22,8 @@ class BaseUIList(MYTableView):
         self.setSelectionMode(self.SingleSelection)
         self.setModel(model)
         self.hideColumn(1)
-        self.hideColumn(2)
+        self.setColumnWidth(0, 370)
+        # self.hideColumn(2)
 
 
 

@@ -1,3 +1,5 @@
+from PyQt5.QtCore import QDateTime
+from PyQt5.QtCore import QTime
 from PyQt5.QtWidgets import QHBoxLayout
 from PyQt5.QtWidgets import QVBoxLayout
 
@@ -69,6 +71,28 @@ class Notes(MYWidget):
         self.__form_add.accepted.connect(self.__tool_AddNewContact)
         self.__list.clicked.connect(self.__tool_LoadAttribsToViewForm)
         self.__form_view.btn_add.clicked.connect(self.__tool_OpenAddForm)
+        self.__btn_all.clicked.connect(self.__filter_All)
+        self.__btn_today.clicked.connect(self.__filter_Today)
+        self.__date_filter.dateChanged.connect(self.__filter_SpecificDate)
+
+
+    def __filter_All(self):
+        self.__model.setFilter('')
+        self.__model.select()
+
+    def __filter_SpecificDate(self):
+        d = self.__date_filter.date()
+        t = QTime(0, 0)
+        dt = QDateTime()
+        dt.setDate(d)
+        dt.setTime(t)
+        self.__model.setDateTimeFilter(compare_sign='==', date=dt)
+        self.__model.select()
+
+    def __filter_Today(self):
+        self.__model.setDateTimeFilter('==')
+        self.__model.select()
+
 
 
 
