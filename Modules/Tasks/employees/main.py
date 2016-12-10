@@ -29,7 +29,7 @@ class EmployeeTask(MYWidget):
 
     def __init_Parameters(self):
         self.__list.setModel(self.__model)
-        self.__list.hideColumn(1)
+        # self.__list.hideColumn(1)
         self.__list.hideColumn(2)
         self.__list.hideColumn(3)
 

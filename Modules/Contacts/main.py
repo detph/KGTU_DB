@@ -39,7 +39,6 @@ class Contacts(MYWidget):
 
     def __init_Parameters(self):
         self.resize(300, 620)
-        self.__model.setHeaders(["ФИО"])
         self.__list.setModel(self.__model)
 
     def __init_Layouting(self):

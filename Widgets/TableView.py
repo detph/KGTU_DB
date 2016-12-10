@@ -19,5 +19,5 @@ class MYTableView(QTableView):
         self.setSelectionMode(self.SingleSelection)
         self.setSelectionBehavior(self.SelectRows)
         self.setEditTriggers(self.NoEditTriggers)
-
+        self.setSortingEnabled(True)
         if ENABLE_STYLES: self.setStyleSheet(STYLE.ListWidget)
