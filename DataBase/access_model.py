@@ -115,21 +115,21 @@ class DBAccessModel(QSqlTableModel):
         for i in range(0, len(headers)):
             self.setHeaderData(i, 1, str(headers[i]))
 
-    def setDateTimeFilter(self, compare_sign, field ="datetime", date = QDateTime().currentDateTime()):
+    def setDateTimeFilter(self, compare_sign, field ="datetime", type = "dt", date = QDateTime().currentDateTime()):
         """
         :param compare_sign: <str> : Логическая операция сравнения с датой date
         [==, >, >=, <, <=]
         :param date: Дата для сравнения, По умолчанию текущая
         """
         print(date.toPyDateTime())
-        if compare_sign in [">", "<", "==", "<=", ">="]:
+        if type == "dt" :
             self.setFilter(
                 "datetime(" + field + ") "
                 + compare_sign
                 + " datetime('"
                 + str(date.toPyDateTime()) + "')"
             )
-        elif compare_sign == "d":
+        elif type == "d":
             self.setFilter(
                 "date(" + field + ") "
                 + compare_sign
