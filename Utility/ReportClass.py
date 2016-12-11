@@ -41,7 +41,8 @@ class Report():
 
     def showPreview(self):
         self.previewDialog = QPrintPreviewDialog(self.printer)
-        self.previewDialog.setMaximumSize(1000,2000)
+        # self.previewDialog.setMaximumSize(1000,2000)
+        self.previewDialog.setFixedSize(500,700)
         self.previewDialog.paintRequested.connect(self.Print)
         self.previewDialog.exec()
         self.printed = True

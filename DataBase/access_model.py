@@ -122,12 +122,20 @@ class DBAccessModel(QSqlTableModel):
         :param date: Дата для сравнения, По умолчанию текущая
         """
         print(date.toPyDateTime())
-        self.setFilter(
-            "datetime(" + field + ") "
-            + compare_sign
-            + " datetime('"
-            + str(date.toPyDateTime()) + "')"
-        )
+        if compare_sign in [">", "<", "==", "<=", ">="]:
+            self.setFilter(
+                "datetime(" + field + ") "
+                + compare_sign
+                + " datetime('"
+                + str(date.toPyDateTime()) + "')"
+            )
+        elif compare_sign == "d":
+            self.setFilter(
+                "date(" + field + ") "
+                + compare_sign
+                + " date('"
+                + str(date.toPyDateTime()) + "')"
+            )
 
 
 
