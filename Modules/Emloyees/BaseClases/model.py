@@ -12,14 +12,15 @@ class Model(DBAccessModel):
             app_db=data_base
         )
 
-        self.setHeaders(['ФИО', 'Зарплата', 'Отдел'])
+        self.setHeaders(['ФИО', 'Зарплата', 'Отдел', 'Должность'])
 
     def getStructure(self, row):
         attrs = self.getRecord(row=row, record_type=self.PyDictRecord)
         struct = Structure(
             fio=attrs['fio'],
             salary=attrs['salary'],
-            department=attrs['department']
+            department=attrs['department'],
+            post=attrs['post']
         )
         return struct
 

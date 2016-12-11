@@ -76,10 +76,12 @@ class BaseUIAttribs(MYWidget):
         self.__lbl_fio = MYLabel(parent=self, bold=True, text='ФИО:')
         self.__lbl_salary  = MYLabel(parent=self, bold=True, text='Зарплата:')
         self.__lbl_department = MYLabel(parent=self, bold=True, text='Отдел:')
+        self.__lbl_post = MYLabel(parent=self, bold=True, text='Должность:')
 
         self.__fio = MYLineEdit(parent=self)
         self.__salary = QSpinBox(self)
         self.__department = MYComboBox(parent=self)
+        self.__post = MYComboBox(parent=self)
 
     def __init_NotEditableAttributes(self):
         self.btns_layout = QHBoxLayout()
@@ -88,10 +90,12 @@ class BaseUIAttribs(MYWidget):
         self.__lbl_fio = MYLabel(parent=self, bold=True, text='ФИО:')
         self.__lbl_salary = MYLabel(parent=self, bold=True, text='Зарплата:')
         self.__lbl_department = MYLabel(parent=self, bold=True, text='Отдел:')
+        self.__lbl_post = MYLabel(parent=self, bold=True, text='Должность:')
 
         self.__fio = MYLabel(parent=self, bold=False, italic=True)
         self.__salary = MYLabel(parent=self, bold=False, italic=True)
         self.__department = MYLabel(parent=self, bold=False, italic=True)
+        self.__post = MYLabel(parent=self, bold=False, italic=True)
 
     def __init_Parameters(self):
         self.__form_layout.setContentsMargins(0, 0, 0, 0)
@@ -100,6 +104,14 @@ class BaseUIAttribs(MYWidget):
         if self.__uitype == self.Editable:
             self.__salary.setMaximum(1000000000)
             self.__department.setModel(self.__department_model)
+            self.__post.addItems([
+                'Главный проектировщик',
+                'Главный дизайнер',
+                'Главный программист',
+                'UIX',
+                'Системный инженер',
+                'Тестировщик'
+            ])
 
     def __init_Layouting(self):
 
@@ -112,11 +124,12 @@ class BaseUIAttribs(MYWidget):
         self.__form_layout.setWidget(0, AS_LABEL, self.__lbl_fio)
         self.__form_layout.setWidget(1, AS_LABEL, self.__lbl_salary)
         self.__form_layout.setWidget(2, AS_LABEL, self.__lbl_department)
+        self.__form_layout.setWidget(3, AS_LABEL, self.__lbl_post)
 
         self.__form_layout.setWidget(0, AS_FIELD, self.__fio)
         self.__form_layout.setWidget(1, AS_FIELD, self.__salary)
         self.__form_layout.setWidget(2, AS_FIELD, self.__department)
-
+        self.__form_layout.setWidget(3, AS_FIELD, self.__post)
 
 
 
@@ -128,14 +141,15 @@ class BaseUIAttribs(MYWidget):
 
         if self.__uitype == self.Editable:
             department = self.__department.currentText()
+            post = self.__post.currentText()
         else:
             department = self.__department.text()
-
+            post = self.__post.text()
 
         self.__structure.setFIO(fio)
         self.__structure.setSalary(salary)
         self.__structure.setDepartment(department)
-
+        self.__structure.setPost(post)
 
         return self.__structure
 
@@ -149,8 +163,9 @@ class BaseUIAttribs(MYWidget):
         if self.__uitype == self.Editable:
             self.__salary.setValue(struct.salary)
             self.__department.setCurrentText(struct.department)
+            self.__post.setCurrentText(struct.post)
         else:
             self.__salary.setText(str(struct.salary))
             self.__department.setText(struct.department)
-
+            self.__post.setText(struct.post)
 

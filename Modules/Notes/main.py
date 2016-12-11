@@ -86,7 +86,7 @@ class Notes(MYWidget):
         dt = QDateTime()
         dt.setDate(d)
         dt.setTime(t)
-        self.__model.setDateTimeFilter(compare_sign='==', date=dt)
+        self.__model.setDateTimeFilter(type='d', compare_sign='==', date=dt)
         self.__model.select()
 
     def __filter_Today(self):

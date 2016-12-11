@@ -11,14 +11,15 @@ class Model(DBAccessModel):
             table=DBAccessModel.TableContacts,
             app_db=data_base
         )
-        self.setHeaders(["ФИО", 'НОМЕР', 'ГРУППА'])
+        self.setHeaders(["ФИО", 'НОМЕР', 'ГРУППА', 'ФИРМА'])
 
     def getStructure(self, row):
         attrs = self.getRecord(row=row, record_type=self.PyDictRecord)
         struct = Structure(
             fio = attrs['name'],
             phone=attrs['phone'],
-            group=attrs['group']
+            group=attrs['group'],
+            company=attrs['company']
         )
         return struct
 

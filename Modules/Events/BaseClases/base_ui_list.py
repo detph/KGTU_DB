@@ -24,7 +24,7 @@ class BaseUIList(MYTableView):
 
     def initColumnsParms(self):
         self.setColumnWidth(0, 220)
-        self.hideColumn(2)
+        # self.hideColumn(2)
         self.hideColumn(3)
         self.hideColumn(4)
 

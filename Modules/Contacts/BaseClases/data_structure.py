@@ -17,7 +17,8 @@ class Structure(object):
             self,
             fio=None,
             phone=None,
-            group=None
+            group=None,
+            company=None
     ):
         """
         :param fio: <str> : ФИО
@@ -26,7 +27,7 @@ class Structure(object):
         """
 
         self.__init_Attributes()
-        self.__init_Parameters(fio=fio, phone=phone, group=group)
+        self.__init_Parameters(fio=fio, phone=phone, group=group, company=company)
 
 
 
@@ -37,11 +38,13 @@ class Structure(object):
         self.__fio = ''
         self.__phone = ''
         self.__group = ''
+        self.__company = ''
 
-    def __init_Parameters(self, fio, phone, group):
+    def __init_Parameters(self, fio, phone, group, company):
         if fio: self.setFIO(fio)
         if phone: self.setPhone(phone)
         if group: self.setGroup(group)
+        if company: self.setCompany(company)
 
 
     
@@ -51,7 +54,8 @@ class Structure(object):
         return [
             self.__fio,
             self.__phone,
-            self.__group
+            self.__group,
+            self.__company
         ]
     
     @property
@@ -74,6 +78,10 @@ class Structure(object):
             return self.__group
         except:
             return None
+    
+    @property
+    def company(self):
+        return self.__company
 
 
 
@@ -95,6 +103,8 @@ class Structure(object):
         """
         self.__phone = str(phone)
 
+    def setCompany(self, company):
+        self.__company = company
 
 
 

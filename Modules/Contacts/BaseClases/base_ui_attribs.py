@@ -69,15 +69,18 @@ class BaseUIAttribs(MYWidget):
         self.__lbl_fio   = MYLabel(parent=self, bold=True, text='ФИО:')
         self.__lbl_phone = MYLabel(parent=self, bold=True, text='Телефон:')
         self.__lbl_group = MYLabel(parent=self, bold=True, text='Группа:')
+        self.__lbl_comp  = MYLabel(parent=self, bold=True, text='Фирма:')
 
         if self.__uitype == self.Editable:
             self.__fio   = MYLineEdit(parent=self)
             self.__phone = MYLineEdit(self)
             self.__group = MYComboBox(parent=self)
+            self.__comp = MYLineEdit(parent=self)
         else:
-            self.__fio   = MYLabel(parent=self)
-            self.__phone = MYLabel(parent=self)
-            self.__group = MYLabel(parent=self)
+            self.__fio   = MYLabel(parent=self, bold=False, italic=True)
+            self.__phone = MYLabel(parent=self, bold=False, italic=True)
+            self.__group = MYLabel(parent=self, bold=False, italic=True)
+            self.__comp = MYLabel(parent=self, bold=False, italic=True)
 
     def __init_Parameters(self):
         self.__form_layout.setContentsMargins(0, 0, 0, 0)
@@ -103,11 +106,12 @@ class BaseUIAttribs(MYWidget):
         self.__form_layout.setWidget(0, AS_LABEL, self.__lbl_fio)
         self.__form_layout.setWidget(1, AS_LABEL, self.__lbl_phone)
         self.__form_layout.setWidget(2, AS_LABEL, self.__lbl_group)
+        self.__form_layout.setWidget(3, AS_LABEL, self.__lbl_comp)
 
         self.__form_layout.setWidget(0, AS_FIELD, self.__fio)
         self.__form_layout.setWidget(1, AS_FIELD, self.__phone)
         self.__form_layout.setWidget(2, AS_FIELD, self.__group)
-
+        self.__form_layout.setWidget(3, AS_FIELD, self.__comp)
 
 
 
@@ -116,6 +120,7 @@ class BaseUIAttribs(MYWidget):
     def dataStructure(self):
         self.__structure.setFIO(self.__fio.text())
         self.__structure.setPhone(self.__phone.text())
+        self.__structure.setCompany(self.__comp.text())
         if self.__uitype == self.Editable:
             self.__structure.setGroup(self.__group.currentText())
         else:
@@ -129,6 +134,7 @@ class BaseUIAttribs(MYWidget):
 
         self.__fio.setText(struct.FIO)
         self.__phone.setText(struct.phone)
+        self.__comp.setText(struct.company)
 
         if self.__uitype == self.Editable:
             self.__group.setCurrentText(struct.group)

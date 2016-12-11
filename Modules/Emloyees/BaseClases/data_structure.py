@@ -17,14 +17,16 @@ class Structure(object):
             self,
             fio=None,
             salary=None,
-            department=None
+            department=None,
+            post=None
     ):
 
         self.__init_Attributes()
         self.__init_Parameters(
             fio=fio,
             salary=salary,
-            department=department
+            department=department,
+            post=post
         )
 
 
@@ -38,10 +40,11 @@ class Structure(object):
         self.__post = ''
         self.__department = ''
 
-    def __init_Parameters(self, fio, salary, department):
+    def __init_Parameters(self, fio, salary, department, post):
         if fio: self.setFIO(fio)
         if salary: self.setSalary(salary)
         if department: self.setDepartment(department)
+        if post: self.setPost(post)
 
 
     
@@ -51,7 +54,8 @@ class Structure(object):
         return [
             self.__fio,
             self.__salary,
-            self.__department
+            self.__department,
+            self.__post
         ]
     
     @property
@@ -75,6 +79,9 @@ class Structure(object):
         except:
             return None
 
+    @property
+    def post(self):
+        return self.__post
 
 
 
@@ -88,3 +95,6 @@ class Structure(object):
 
     def setDepartment(self, department):
         self.__department = str(department)
+
+    def setPost(self, post):
+        self.__post = post
