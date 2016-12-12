@@ -4,6 +4,8 @@ from PyQt5.QtWidgets import QHBoxLayout
 from PyQt5.QtWidgets import QVBoxLayout
 
 from Widgets.DateEdit import MYDateEdit
+from Widgets.Label import MYLabel
+from Widgets.LineEdit import MYLineEdit
 from Widgets.PushButton import MYPushButton
 from Widgets.Widget import MYWidget
 
@@ -39,6 +41,9 @@ class Notes(MYWidget):
 
     #inits
     def __init_Attributes(self, DB):
+        self.__poisk_layout = QHBoxLayout()
+        self.__poisk_lbl = MYLabel(parent=self, bold=True, text='Поиск')
+        self.__poisk_line = MYLineEdit(parent=self)
         self.__btn_all = MYPushButton(parent=self, text='Все')
         self.__btn_today = MYPushButton(parent=self, text='На сегодня')
         self.__date_filter = MYDateEdit(parent=self)
@@ -56,9 +61,12 @@ class Notes(MYWidget):
         self.__list.setModel(self.__model)
 
     def __init_Layouting(self):
+        self.__poisk_layout.addWidget(self.__poisk_lbl)
+        self.__poisk_layout.addWidget(self.__poisk_line)
         self.__layout_filters.addWidget(self.__btn_all)
         self.__layout_filters.addWidget(self.__btn_today)
         self.__layout_filters.addWidget(self.__date_filter)
+        self.__layout_list.addLayout(self.__poisk_layout)
         self.__layout_list.addLayout(self.__layout_filters)
         self.__layout_list.addWidget(self.__list)
         self.main_layout.addLayout(self.__layout_list)

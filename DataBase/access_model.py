@@ -136,7 +136,9 @@ class DBAccessModel(QSqlTableModel):
                 + str(date.toPyDateTime()) + "')"
             )
 
-
+    def setPoisk(self, field, text):
+        self.setFilter(field +" like('%" + text +"%')")
+        self.select()
 
 
 

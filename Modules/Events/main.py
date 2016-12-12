@@ -1,4 +1,6 @@
-
+from Widgets.ComboBox import MYComboBox
+from Widgets.Label import MYLabel
+from Widgets.LineEdit import MYLineEdit
 from Widgets.Widget import MYWidget
 
 from Modules.Events.form_add import FormAdd
@@ -39,6 +41,10 @@ class Events(MYWidget):
     # inits
     def __init_Attributes(self, DB):
         self.__filters_layout = QHBoxLayout()
+        self.__poisk_layout = QHBoxLayout()
+        self.__posik_lbl = MYLabel(parent=self, bold=True, text='Поиск')
+        self.__poisk_line = MYLineEdit(parent=self)
+        self.__poisk_field = MYComboBox(parent=self)
         self.__filter_uspeshnie = MYPushButton(parent=self, text='Успешные')
         self.__filter_future = MYPushButton(parent=self, text='Будущие')
         self.__filter_bad = MYPushButton(parent=self, text='Неудавшиеся')
@@ -54,13 +60,19 @@ class Events(MYWidget):
         self.__list_layout.setSpacing(10)
         self.__list.setModel(self.__model)
         self.__list.initColumnsParms()
+        self.__poisk_field.addItems(['ФИО', 'Место'])
 
     def __init_Layouting(self):
-        self.__list_layout.addWidget(self.__list)
+        self.__poisk_layout.addWidget(self.__posik_lbl)
+        self.__poisk_layout.addWidget(self.__poisk_line)
+        self.__poisk_layout.addWidget(self.__poisk_field)
+
         self.__filters_layout.addWidget(self.__filter_all)
         self.__filters_layout.addWidget(self.__filter_bad)
         self.__filters_layout.addWidget(self.__filter_uspeshnie)
         self.__filters_layout.addWidget(self.__filter_future)
+        self.__list_layout.addWidget(self.__list)
+        self.__list_layout.addLayout(self.__poisk_layout)
         self.__list_layout.addLayout(self.__filters_layout)
         self.main_layout.addLayout(self.__list_layout)
         self.main_layout.addWidget(self.__form_view)
@@ -75,10 +87,18 @@ class Events(MYWidget):
         self.__list.clicked.connect(self.__tool_LoadAttribsToViewForm)
         self.__list.doubleClicked.connect(self.__tool_OpenEditForm)
         self.__form_view.btn_add.clicked.connect(self.__tool_OpenAddForm)
+        self.__poisk_line.textChanged.connect(self.__poisk_Specific)
 
+    def __poisk_Specific(self):
 
+        if self.__poisk_field.currentText() == 'ФИО':
+            field = 'fio'
+        elif self.__poisk_field.currentText() == 'Место':
+            field = 'place'
 
+        text = self.__poisk_line.text()
 
+        self.__model.setPoisk(field, text)
 
 
     # filters

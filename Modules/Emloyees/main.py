@@ -1,5 +1,8 @@
+from PyQt5.QtWidgets import QHBoxLayout
 
-
+from Widgets.ComboBox import MYComboBox
+from Widgets.Label import MYLabel
+from Widgets.LineEdit import MYLineEdit
 from Widgets.Widget import MYWidget
 
 from Modules.Emloyees.form_add import FormAdd
@@ -32,6 +35,10 @@ class Employees(MYWidget):
 
     #inits
     def __init_Attributes(self, DB):
+        self.__poisk_layout = QHBoxLayout()
+        self.__poisk_lbl = MYLabel(parent=self, bold=True, text='Поиск')
+        self.__poisk_line = MYLineEdit(parent=self)
+        self.__poisk_field = MYComboBox(parent=self)
         self.__model = Model(DB)
         self.__list = BaseUIList(parent=self, model=self.__model)
         self.__form_view = FormView(DB=DB, parent=self)
@@ -45,7 +52,11 @@ class Employees(MYWidget):
         self.__list.setColumnWidth(1, 150)
 
     def __init_Layouting(self):
+        self.__poisk_layout.addWidget(self.__poisk_lbl)
+        self.__poisk_layout.addWidget(self.__poisk_line)
+        self.__poisk_layout.addWidget(self.__poisk_field)
         self.main_layout.addWidget(self.__form_view)
+        self.main_layout.addLayout(self.__poisk_layout)
         self.main_layout.addWidget(self.__list)
 
     def __init_Connects(self):
