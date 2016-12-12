@@ -9,11 +9,6 @@ from Modules.Emloyees.main import Employees
 
 
 class AppMainWindow(MYMainWindow):
-
-    #SIGNALS
-
-
-
     def __init__(self, DB):
         super(AppMainWindow, self).__init__(
             window_size=(1000, 600),
@@ -24,7 +19,7 @@ class AppMainWindow(MYMainWindow):
         self.__init_Attributes(DB)
         self.__init_Parameters()
         self.__init_Layouting()
-
+        self.__init_Connects()
 
 
     #inits
@@ -43,6 +38,13 @@ class AppMainWindow(MYMainWindow):
         self.tabs.addTab(self.employees, 'Сотрудники')
         self.tabs.addTab(self.tasks, 'Поручения')
 
+    def __init_Connects(self):
+        self.employees.pushedCreateTask.connect(self.__openTasksCreate)
 
     def __init_Layouting(self):
         self.cwidget.main_layout.addWidget(self.tabs)
+
+    def __openTasksCreate(self, name):
+        print(name)
+        self.tabs.setCurrentIndex(4)
+        self.tasks.createEmployeeTask(name)

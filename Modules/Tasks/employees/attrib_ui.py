@@ -169,6 +169,8 @@ class BaseUIAttribsEmp(MYWidget):
         self.__model_task.select()
 
 
+    def setFIO(self, fio):
+        self.__name.setCurrentText(fio)
 
 
 if __name__ == '__main__':

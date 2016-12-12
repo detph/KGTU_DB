@@ -25,7 +25,8 @@ class FormAdd(MYDialog):
         self.main_layout.addWidget(self.attribs)
 
 
-
+    def setFIO(self, name):
+        self.attribs.setFIO(name)
 
 
 

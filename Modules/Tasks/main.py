@@ -94,3 +94,7 @@ class Tasks(MYWidget):
                 self.__model.removeRecord(row)
         except:
             pass
+
+    def createEmployeeTask(self, name):
+        self.__tabs.setCurrentIndex(1)
+        self.__employee.createEmployeeTask(name)

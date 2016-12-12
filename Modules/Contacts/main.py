@@ -1,3 +1,4 @@
+
 from PyQt5.QtWidgets import QHBoxLayout
 
 from Widgets.ComboBox import MYComboBox
@@ -18,8 +19,6 @@ from Modules.Contacts.BaseClases.base_ui_list import BaseUIList
 
 
 class Contacts(MYWidget):
-
-
     def __init__(self, DB):
         super(Contacts, self).__init__(
             layout='V',
@@ -69,6 +68,7 @@ class Contacts(MYWidget):
         self.__poisk_line.textChanged.connect(self.__poisk_Specific)
 
 
+
     def __poisk_Specific(self):
 
         if self.__poisk_field.currentText() == 'ФИО':
@@ -116,4 +116,3 @@ class Contacts(MYWidget):
             index = index[0]
             row = index.row()
             self.__model.removeRecord(row)
-

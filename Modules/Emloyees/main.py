@@ -1,3 +1,4 @@
+from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtWidgets import QHBoxLayout
 
 from Widgets.ComboBox import MYComboBox
@@ -19,6 +20,8 @@ from Modules.Emloyees.BaseClases.base_ui_list import BaseUIList
 
 
 class Employees(MYWidget):
+
+    pushedCreateTask = pyqtSignal(str)
 
     def __init__(self, DB):
         super(Employees, self).__init__(
@@ -46,6 +49,7 @@ class Employees(MYWidget):
         self.__form_edit = FormEdit(DB=DB, parent=self)
 
     def __init_Parameters(self):
+        self.__poisk_field.addItems(['ФИО', 'Должность', 'Отдел'])
         self.resize(500, 620)
         self.__list.setModel(self.__model)
         self.__list.setColumnWidth(0, 250)
@@ -66,6 +70,21 @@ class Employees(MYWidget):
         self.__form_add.accepted.connect(self.__tool_AddNewEmployee)
         self.__list.clicked.connect(self.__tool_LoadAttribsToViewForm)
         self.__form_view.btn_add.clicked.connect(self.__tool_OpenAddForm)
+        self.__poisk_line.textChanged.connect(self.__poisk_Specific)
+        self.__form_view.btn_deal.clicked.connect(self.__emit_PushCreateDeal)
+
+    def __poisk_Specific(self):
+
+        if self.__poisk_field.currentText() == 'ФИО':
+            field = 'fio'
+        elif self.__poisk_field.currentText() == 'Должность':
+            field = 'post'
+        elif self.__poisk_field.currentText() == 'Отдел':
+            field = 'department'
+
+        text = self.__poisk_line.text()
+
+        self.__model.setPoisk(field, text)
 
 
 
@@ -103,3 +122,12 @@ class Employees(MYWidget):
             index = index[0]
             row = index.row()
             self.__model.removeRecord(row)
+
+    def __emit_PushCreateDeal(self):
+        selected = self.__list.selectedIndexes()
+        if selected:
+            index = selected[0]
+            row = index.row()
+            data = self.__model.getStructure(row)
+            name = data.FIO
+            self.pushedCreateTask.emit(name)

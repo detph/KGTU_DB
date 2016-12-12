@@ -82,6 +82,13 @@ class Notes(MYWidget):
         self.__btn_all.clicked.connect(self.__filter_All)
         self.__btn_today.clicked.connect(self.__filter_Today)
         self.__date_filter.dateChanged.connect(self.__filter_SpecificDate)
+        self.__poisk_line.textChanged.connect(self.__poisk_Specific)
+
+
+    def __poisk_Specific(self):
+        field = 'theme'
+        text = self.__poisk_line.text()
+        self.__model.setPoisk(field, text)
 
 
     def __filter_All(self):

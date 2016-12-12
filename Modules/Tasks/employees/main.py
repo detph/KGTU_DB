@@ -82,7 +82,9 @@ class EmployeeTask(MYWidget):
             index = selected[0]
             self.__model.removeRecord(index.row())
 
-
+    def createEmployeeTask(self, name):
+        self.__form_add.setFIO(name)
+        self.__form_add.show()
 
 
 
