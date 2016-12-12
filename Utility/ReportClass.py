@@ -6,7 +6,6 @@ from PyQt5.QtGui import QTextTableFormat
 from PyQt5.QtPrintSupport import QPrintPreviewDialog, QPrinter, QPrintDialog
 from PyQt5.QtSql import QSqlTableModel
 from PyQt5.QtWidgets import QApplication
-from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtWidgets import QTextEdit
 
 
@@ -16,9 +15,13 @@ class Report():
     printer = None
     previewDialog = None
     document = None
-    FontSize = 12
+    FontSize = 8
     Html = ''
     webView = None
+    string = ''
+
+    def setString(self, str):
+        self.string = str
 
     def __init__(self, name = 'Отчет', date = QDate.currentDate()):
         self.__initObjects()
@@ -42,7 +45,7 @@ class Report():
     def showPreview(self):
         self.previewDialog = QPrintPreviewDialog(self.printer)
         # self.previewDialog.setMaximumSize(1000,2000)
-        self.previewDialog.setFixedSize(500,700)
+        # self.previewDialog.setFixedSize(500,700)
         self.previewDialog.paintRequested.connect(self.Print)
         self.previewDialog.exec()
         self.printed = True
@@ -56,8 +59,6 @@ class Report():
         self.document = QTextDocument()
         self.document.setDefaultFont(QFont("Times",self.FontSize))
 
-        self.webView = QWebEngineView()
-
     def __setHeader(self):
         self.Html += "\
         <div>\
@@ -66,8 +67,11 @@ class Report():
         </div>\
         "
 
-    def addString(self, string):
-        self.Html += string
+    def addString(self, string = None):
+        if string == None:
+            self.Html += "<br><h3>" + self.string + "<\h3>"
+        else:
+            self.Html += string
 
     def addTable(self,fields, rows):
         self.Html += '<table '

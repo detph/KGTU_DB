@@ -34,7 +34,6 @@ class MYTableWidget(QTableWidget):
 
         #PARMS
         if parent: self.setParent(parent)
-
         header_font = QFont()
         header_font.setBold(True)
         header_font.setPointSize(HEADER_FONT_SIZE)
@@ -88,7 +87,6 @@ class MYTableWidget(QTableWidget):
                 if item.text() != '':
                     result.append(item.text())
         return result
-
 
 
 

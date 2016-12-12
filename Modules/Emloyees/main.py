@@ -49,7 +49,7 @@ class Employees(MYWidget):
         self.__form_edit = FormEdit(DB=DB, parent=self)
 
     def __init_Parameters(self):
-        self.__poisk_field.addItems(['ФИО', 'Должность', 'Отдел'])
+        self.__poisk_field.addItems(['ФИО', 'Должность', 'Отдел', 'Зарплата'])
         self.resize(500, 620)
         self.__list.setModel(self.__model)
         self.__list.setColumnWidth(0, 250)
@@ -75,6 +75,8 @@ class Employees(MYWidget):
 
     def __poisk_Specific(self):
 
+        text = self.__poisk_line.text()
+
         if self.__poisk_field.currentText() == 'ФИО':
             field = 'fio'
         elif self.__poisk_field.currentText() == 'Должность':
@@ -82,9 +84,16 @@ class Employees(MYWidget):
         elif self.__poisk_field.currentText() == 'Отдел':
             field = 'department'
 
-        text = self.__poisk_line.text()
 
-        self.__model.setPoisk(field, text)
+        if self.__poisk_field.currentText() == 'Зарплата':
+            try:
+                self.__model.setFilter('salary ' + text)
+            except:
+                pass
+        else:
+            self.__model.setPoisk(field, text)
+
+        self.__model.select()
 
 
 

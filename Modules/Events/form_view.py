@@ -25,7 +25,7 @@ class FormView(BaseUIAttribs):
 
         self.btns_layout.addWidget(self.btn_add)
         self.btns_layout.addWidget(self.btn_remove)
-
+        self.setFixedWidth(300)
 
 
 

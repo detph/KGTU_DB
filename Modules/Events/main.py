@@ -1,3 +1,6 @@
+from PyQt5.QtWidgets import QWidget
+
+from Utility.ReportClass import Report
 from Widgets.ComboBox import MYComboBox
 from Widgets.Label import MYLabel
 from Widgets.LineEdit import MYLineEdit
@@ -29,6 +32,7 @@ class Events(MYWidget):
             layout_margins=[10, 10, 10, 10]
         )
 
+
         self.__init_Attributes(DB)
         self.__init_Parameters()
         self.__init_Layouting()
@@ -40,6 +44,9 @@ class Events(MYWidget):
 
     # inits
     def __init_Attributes(self, DB):
+        self.__reporter = Report(name='Отчёт по делам')
+        self.__btn_shw_rprt = MYPushButton(parent=self, text='Отчёт')
+        self.__btn_shw_add_rprt = MYPushButton(parent=self, text='Добавить отчёт')
         self.__filters_layout = QHBoxLayout()
         self.__poisk_layout = QHBoxLayout()
         self.__posik_lbl = MYLabel(parent=self, bold=True, text='Поиск')
@@ -61,11 +68,15 @@ class Events(MYWidget):
         self.__list.setModel(self.__model)
         self.__list.initColumnsParms()
         self.__poisk_field.addItems(['ФИО', 'Место'])
+        self.__reporter.setString("Все дела")
 
     def __init_Layouting(self):
         self.__poisk_layout.addWidget(self.__posik_lbl)
         self.__poisk_layout.addWidget(self.__poisk_line)
         self.__poisk_layout.addWidget(self.__poisk_field)
+        self.__poisk_layout.addWidget(self.__btn_shw_add_rprt)
+        self.__poisk_layout.addWidget(self.__btn_shw_rprt)
+
 
         self.__filters_layout.addWidget(self.__filter_all)
         self.__filters_layout.addWidget(self.__filter_bad)
@@ -88,6 +99,9 @@ class Events(MYWidget):
         self.__list.doubleClicked.connect(self.__tool_OpenEditForm)
         self.__form_view.btn_add.clicked.connect(self.__tool_OpenAddForm)
         self.__poisk_line.textChanged.connect(self.__poisk_Specific)
+        self.__btn_shw_rprt.clicked.connect(self.__report_Show)
+        self.__btn_shw_add_rprt.clicked.connect(self.__report_Add)
+        self.__filter_future.clicked.connect(self.__filter_Future)
 
     def __poisk_Specific(self):
 
@@ -101,21 +115,40 @@ class Events(MYWidget):
         self.__model.setPoisk(field, text)
 
 
+
     # filters
     def __filter_AllRecords(self):
         self.__model.setFilter('')
+        self.__model.select()
+        self.__reporter.setString("Все дела")
 
-    def __filter_DateLessThenCurrent(self):
+    def __filter_Past(self):
         self.__model.setDateTimeFilter(compare_sign='<')
+        self.__model.select()
+        self.__reporter.setString("Прошедшие дела")
+
+    def __filter_Future(self):
+        self.__model.setDateTimeFilter('>')
+        self.__model.select()
+        self.__reporter.setString("Будущие дела")
 
     def __filter_GoodMiting(self):
         self.__model.setFilter('state > 0')
+        self.__model.select()
+        self.__reporter.setString("Успешные дела")
 
     def __filter_BadMiting(self):
         current_date = str(QDateTime().currentDateTime().toPyDateTime())
         self.__model.setFilter('state < 1 and datetime < datetime(' + current_date +')')
+        self.__model.select()
+        self.__reporter.setString("Неудачные дела")
 
+    def __report_Show(self):
+        self.__reporter.showPreview()
 
+    def __report_Add(self):
+        self.__reporter.addString()
+        self.__reporter.addTableFromModel(self.__model, fieldsNames=["ФИО","Место","Дата и время","Описание","Состояние"])
 
 
 
