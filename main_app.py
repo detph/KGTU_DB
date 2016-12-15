@@ -13,7 +13,7 @@ style = """
 
 QTableView QTableCornerButton::section
 {
-      border: 1px black solid;
+      border: 1px solid rgb(99, 99, 99);
       background-color: rgb(58, 58, 58);
 }
 
@@ -23,7 +23,7 @@ QWidget
     font-size: 11px;
     color: rgb(204, 204, 204);
     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-				stop: 0.0 rgb(86, 86, 86),
+				stop: 0.0 rgb(58, 58, 58),
 				stop: 1.0 rgb(58, 58, 58));
 }
 
@@ -60,6 +60,7 @@ QDialog, QFrame, QGroupBox
     color: rgb(204, 204, 204);
 }
 
+
 QGroupBox
 {
     border: 1px solid rgb(28, 28, 28);
@@ -82,11 +83,6 @@ QGroupBox::title
     color: rgb(204, 204, 204);
 }
 
-QStatusBar
-{
-    background: rgb(58, 58, 58);
-    color: rgb(204, 204, 204);
-}
 
 QTextEdit
 {
@@ -94,13 +90,14 @@ QTextEdit
     color: rgb(204, 204, 204);
     selection-background-color: rgb(184, 134, 32);
     selection-color: rgb(0, 0, 0);
+    border: 1px solid rgb(99, 99, 99);
 }
 
 QTextEdit#code_edit
 {
     background: rgb(86, 86, 86);
     font-size: 15px;
-    border: none;
+    border: 1px solid rgb(99, 99, 99);
 }
 
 QTextBrowser
@@ -109,6 +106,7 @@ QTextBrowser
     color: rgb(204, 204, 204);
     selection-background-color: rgb(184, 134, 32);
     selection-color: rgb(0, 0, 0);
+    border: 1px solid rgb(99, 99, 99);
 }
 
 QCheckBox
@@ -119,6 +117,44 @@ QCheckBox
 QCheckBox:disabled
 {
     color: rgb(131, 131, 131);
+}
+
+QDateEdit
+{
+    border: 1px solid rgba(0, 0, 0, 102);
+    border-radius: 1px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-right: 2px;
+    padding-left: 2px;
+    background: qlineargradient(x1: 0, y1: 0,x2: 0, y2: 1,
+                                stop: 0.0 rgb(86, 86, 86),
+                                stop: 1.0 rgb(58, 58, 58));
+}
+
+QDateEdit:disabled
+{
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                    stop: 0.0 rgba(86, 86, 86, 40),
+				    stop: 1.0 rgba(58, 58, 58, 40));
+    color: rgb(131, 131, 131);
+}
+
+QDateEdit::drop-down
+{
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+				stop: 0.0 rgb(63, 63, 63),
+				stop: 1.0 rgb(38, 38, 38));
+    width: 20px;
+}
+
+QDateEdit::down-arrow
+{
+    width: 0;
+    height: 0;
+    border-left: 3px solid rgba(63, 63, 63, 0);
+    border-right: 3px solid rgba(63, 63, 63, 0);
+    border-top: 5px solid rgb(131, 131, 131);
 }
 
 QComboBox
@@ -198,16 +234,12 @@ QSplitter::handle:pressed
     background-color: rgb(184, 134, 32);
 }
 
-QSplitterHandle:hover
-{
-}
-
 QSplitter::handle:hover
 {
     background-color: rgb(184, 134, 32);
 }
 
-QLineEdit, QSpinBox
+QLineEdit, QSpinBox, QTimeEdit
 {
     border: 1px solid rgb(35, 35, 35);
     border-radius: 5px;
@@ -231,23 +263,28 @@ QLineEdit[invalid="true"], QSpinBox[invalid="true"]
     background: rgb(242, 142, 142);
 }
 
-QSpinBox::up-arrow {
-    background: rgb(63, 63, 63);
+QSpinBox::up-arrow, QTimeEdit::up-arrow{
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+				stop: 0.0 rgb(63, 63, 63),
+				stop: 1.0 rgb(38, 38, 38));
     width: 0;
     height: 0;
-    border-left: 3px solid rgba(86, 86, 86, 0);
-    border-right: 3px solid rgba(86, 86, 86, 0);
-    border-bottom: 5px solid rgb(131, 131, 131);
+    border-left: 6px solid rgba(86, 86, 86, 0);
+    border-right: 6px solid rgba(86, 86, 86, 0);
+    border-bottom: 6px solid rgb(131, 131, 131);
 }
 
-QSpinBox::down-arrow {
-    background: rgb(63, 63, 63);
+QSpinBox::down-arrow, QTimeEdit::down-arrow {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+				stop: 0.0 rgb(63, 63, 63),
+				stop: 1.0 rgb(38, 38, 38));
     width: 0;
     height: 0;
-    border-left: 3px solid rgba(86, 86, 86, 0);
-    border-right: 3px solid rgba(86, 86, 86, 0);
-    border-top: 5px solid rgb(131, 131, 131);
+    border-left: 6px solid rgba(86, 86, 86, 0);
+    border-right: 6px solid rgba(86, 86, 86, 0);
+    border-top: 6px solid rgb(131, 131, 131);
 }
+
 
 QLabel:enabled
 {
@@ -291,7 +328,7 @@ QPushButton:pressed#big_text
 QPushButton
 {
     border: 1px solid rgb(90, 90, 90);
-    border-radius: 10px;
+    border-radius: 4px;
     padding-top: 4px;
     padding-bottom: 4px;
     padding-right: 4px;
@@ -475,11 +512,8 @@ QTableView::item
 
 QTableView::item:selected
 {
-    border-top: 1px solid rgb(184, 134, 32);
-    border-bottom: 1px solid rgb(184, 134, 32);
     color: rgb(204, 204, 204);
     background: rgba(184, 134, 32, 77);
-
 }
 
 QTreeView
@@ -501,14 +535,13 @@ QTreeView::item
 
 QTreeView::item:selected
 {
-    border-top: 1px solid rgb(184, 134, 32);
-    border-bottom: 1px solid rgb(184, 134, 32);
     color: rgb(204, 204, 204);
     background: rgba(184, 134, 32, 77);
 }
 
 QHeaderView::section
 {
+    font: bold;
     border: 1px solid rgb(25, 25, 25);
     border-right: 0;
     padding: 4px;
@@ -520,23 +553,19 @@ QHeaderView::section
 QTabWidget
 {
     background: rgb(58, 58, 58);
-    border: none;
+    border: 1px solid rgb(99, 99, 99);
 }
 
 QTabBar
 {
     background: rgb(58, 58, 58);
-    border: none;
+    border: 1px solid rgb(99, 99, 99);
 }
 
-QTabWidget
-{
-    background: rgb(58, 58, 58);
-}
 
 QTabWidget::pane
 {
-    border: 1px solid rgb(19, 19, 19);
+    border: 1px solid solid rgb(99, 99, 99);
     background: rgb(58, 58, 58);
 }
 
@@ -544,7 +573,7 @@ QTabWidget::tab-bar
 {
     alignment: left;
     left: 1px;
-    border: none;
+    border: 1px solid rgb(99, 99, 99);
     background: rgb(58, 58, 58);
 }
 
@@ -555,7 +584,7 @@ QTabBar::tab
     height: 24px;
     margin-top: 1px;
     margin-left: -1px;
-    border: 1px solid rgb(0, 0, 0);
+    border: 1px solid rgb(99, 99, 99);
     border-radius: 0px;
     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
 				stop: 0.0 rgb(86, 86, 86),
@@ -569,6 +598,7 @@ QTabBar[webbrowser="true"]::tab
     border-top-right-radius: 3px;
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
+    border: 1px solid rgb(99, 99, 99);
 }
 
 QTabBar[webbrowser="true"]::tab:last
@@ -580,11 +610,10 @@ QTabBar[webbrowser="true"]::tab:last
 
 QTabBar::tab:selected
 {
-    border: 1px solid #EEE958;
-    border-bottom: 0;
+
     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-				stop: 0.0 rgb(86, 86, 86),
-				stop: 1.0 rgb(58, 58, 58));
+				stop: 0.0 rgb(106, 106, 106),
+				stop: 1.0 rgb(78, 78, 78));
 }
 
 QTabBar[webbrowser="true"]::close-button
@@ -607,61 +636,7 @@ QMenu
     font-size: 12px;
 }
 
-QMenu::item
-{
-    padding: 4px 15px 4px 15px;
-}
 
-QMenuBar::item
-{
-    background: transparent;
-    padding: 4px;
-}
-
-QMenu::item:selected:!disabled
-{
-    background-color: rgb(178, 102, 0);
-    color: rgb(255, 255, 255);
-}
-
-QMenuBar::item:selected
-{
-    background-color: rgb(58, 58, 58);
-}
-
-QMenu::item:disabled
-{
-    color: rgb(160, 160, 160);
-}
-
-QMenuBar
-{
-    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-				stop: 0.0 rgb(58, 58, 58),
-				stop: 1.0 rgb(49, 49, 49));
-    border: 1px solid rgb(0, 0, 0);
-    font-size: 12px;
-}
-
-QMenuBar::item:pressed
-{
-    background: rgb(178, 102, 0);
-    color: rgb(255, 255, 255);
-}
-
-QProgressBar
-{
-    border: 1px solid rgb(147, 147, 147);
-    text-align: center;
-    background-color: rgb(49, 49, 49);
-}
-
-QProgressBar::chunk
-{
-    background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1,
-	stop:0 rgb(184, 134, 32),
-	stop:1 rgb(255, 229, 127));
-}
 
 QScrollBar:horizontal
 {
@@ -789,91 +764,6 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical
     background: none;
 }
 
-QSlider::horizontal
-{
-    height: 20px;
-}
-
-QSlider::vertical
-{
-    width: 20px;
-}
-
-QSlider::groove::horizontal
-{
-    border-top: 1px solid rgb(0, 0, 0);
-    border-bottom: 1px solid rgb(0, 0, 0);
-    border-radius: 1px;
-    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
-				stop:0.4 rgb(102, 102, 102),
-				stop:0.5 rgb(76, 76, 76));
-    height: 3px;
-    margin: 2px 0;
-}
-
-QSlider::groove::vertical
-{
-    border-left: 1px solid rgb(0, 0, 0);
-    border-right: 1px solid rgb(0, 0, 0);
-    border-radius: 1px;
-    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
-				stop:0.4 rgb(102, 102, 102),
-				stop:0.5 rgb(76, 76, 76));
-    width: 3px;
-    margin: 0 2px;
-}
-
-QSlider::handle:horizontal
-{
-    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
-				stop:0 rgb(86, 86, 86),
-				stop:1 rgb(58, 58, 58));
-    border-top: 1px solid rgb(0, 0, 0);
-    border-left: 1px solid rgb(0, 0, 0);
-    border-right: 1px solid rgb(0, 0, 0);
-    border-bottom: 1px solid rgb(0, 0, 0);
-    width: 4px;
-    margin: -8px 0;
-    border-radius: 1px;
-}
-
-QSlider::handle:vertical
-{
-    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
-				stop:0 rgb(86, 86, 86),
-				stop:1 rgb(58, 58, 58));
-    border-top: 1px solid rgb(0, 0, 0);
-    border-left: 1px solid rgb(0, 0, 0);
-    border-right: 1px solid rgb(0, 0, 0);
-    border-bottom: 1px solid rgb(0, 0, 0);
-    height: 4px;
-    margin: 0 -8px;
-    border-radius: 1px;
-}
-
-QSlider::sub-page:horizontal
-{
-    border-top: 1px solid rgb(0, 0, 0);
-    border-bottom: 1px solid rgb(0, 0, 0);
-    border-radius: 1px;
-    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
-				stop:0.4 rgb(76, 102, 127),
-				stop:0.5 rgb(0, 51, 102));
-    height: 3px;
-    margin: 2px 0;
-}
-
-QSlider::sub-page:vertical
-{
-    border-left: 1px solid rgb(0, 0, 0);
-    border-right: 1px solid rgb(0, 0, 0);
-    border-radius: 1px;
-    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
-				stop:0.4 rgb(76, 102, 127),
-				stop:0.5 rgb(0, 51, 102));
-    width: 3px;
-    margin: 0 2px;
-}
 
 QWidget, QLabel:enabled {
     font-family: Calibri;
@@ -881,6 +771,7 @@ QWidget, QLabel:enabled {
     font-size: 12pt;
 }
 """
+
 APP = QApplication([])
 APP.setStyleSheet(style)
 DATABASE = QSqlDatabase('QSQLITE')

@@ -13,7 +13,7 @@ class AppMainWindow(MYMainWindow):
         super(AppMainWindow, self).__init__(
             window_size=(1000, 600),
             title='Записная книжка',
-            layout_margins=[0, 0, 0, 0]
+            layout_margins=[10, 10, 10, 10]
         )
 
         self.__init_Attributes(DB)
@@ -45,6 +45,5 @@ class AppMainWindow(MYMainWindow):
         self.cwidget.main_layout.addWidget(self.tabs)
 
     def __openTasksCreate(self, name):
-        print(name)
         self.tabs.setCurrentIndex(4)
         self.tasks.createEmployeeTask(name)

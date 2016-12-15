@@ -32,6 +32,7 @@ class Structure(object):
         except:
             return None
 
+
     @property
     def task(self):
         try:

@@ -57,7 +57,6 @@ class Notes(MYWidget):
 
     def __init_Parameters(self):
         self.resize(500, 620)
-        self.__model.setHeaders(["Заметки"])
         self.__list.setModel(self.__model)
 
     def __init_Layouting(self):

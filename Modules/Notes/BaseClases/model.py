@@ -11,7 +11,7 @@ class Model(DBAccessModel):
             table=DBAccessModel.TableNotes,
             app_db=data_base
         )
-
+        self.setHeaders(['Тема', 'Описание', 'Дата'])
     def getStructure(self, row):
         attrs = self.getRecord(row=row, record_type=self.PyDictRecord)
         struct = Structure(

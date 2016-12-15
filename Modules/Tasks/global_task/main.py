@@ -17,7 +17,7 @@ class GlobalTasks(MYWidget):
 
     #inits
     def __init__(self, DB):
-        super(GlobalTasks, self).__init__()
+        super(GlobalTasks, self).__init__(layout_margins=[10, 10, 10, 10])
 
         self.__model = ModelTask(DB=DB)
         self.__form_add = Form()

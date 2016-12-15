@@ -95,6 +95,9 @@ class MYDialog(QDialog):
         self.dialog_layout.addLayout(self.main_layout)
         self.dialog_layout.addLayout(self.btn_layout)
 
+        self.ok_btn.setFixedWidth(100)
+        self.close_btn.setFixedWidth(100)
+
 
         #CONNECTS
         self.close_btn.clicked.connect(self.reject)

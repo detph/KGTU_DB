@@ -57,6 +57,7 @@ class DBAccessModel(QSqlTableModel):
             record.setValue(i, str(value))
             i += 1
         self.insertRecord(row, record)
+        self.select()
 
     def removeRecord(self, row=-1):
         """
@@ -105,6 +106,7 @@ class DBAccessModel(QSqlTableModel):
             record.setValue(i, str(item))
             i += 1
         self.setRecord(row, record)
+        self.select()
         return record
 
     def setTable(self, table):

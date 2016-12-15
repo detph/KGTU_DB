@@ -18,7 +18,8 @@ class EmployeeTask(MYWidget):
     #inits
     def __init__(self, DB):
         super(EmployeeTask, self).__init__(
-            layout='H'
+            layout='H',
+            layout_margins=[10, 10, 10, 10]
         )
 
         self.__init_Attributes(DB)

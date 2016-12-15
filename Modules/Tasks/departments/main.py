@@ -20,6 +20,7 @@ class DepartmentTask(MYWidget):
     #inits
     def __init__(self, DB):
         super(DepartmentTask, self).__init__(
+            layout_margins=[10, 10, 10, 10],
             layout='H'
         )
 
@@ -119,6 +120,7 @@ class DepartmentTask(MYWidget):
     def __add(self):
         data = self.__form_add.attribs.dataStructure
         self.__model.addRecord(data)
+        self.__model.select()
 
     def __remove(self):
         selected = self.__list.selectedIndexes()

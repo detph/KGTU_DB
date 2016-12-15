@@ -148,7 +148,18 @@ class Events(MYWidget):
 
     def __report_Add(self):
         self.__reporter.addString()
-        self.__reporter.addTableFromModel(self.__model, fieldsNames=["ФИО","Место","Дата и время","Описание","Состояние"])
+
+        def getStatus(nn):
+            if nn == 1:
+                return "Удачно"
+            else:
+                return "Неудачно"
+
+
+        self.__reporter.addTableFromModel(
+            self.__model,
+            fieldsNames=["ФИО","Место","Дата и время","Описание","Состояние"],
+            delegates={4:getStatus})
 
 
 
