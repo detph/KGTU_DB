@@ -23,7 +23,7 @@ class Structure(object):
         self.__datetime_finish = QDateTime()
         self.__db_datetime_start = QDateTime()
         self.__db_datetime_finish = ''
-        self.__state = False
+        self.__state = 0
 
     # PROPERTY
     @property
@@ -179,7 +179,7 @@ class Structure(object):
         self.__datetime_finish = DateTimeConverter().dbToQt(self.__db_datetime_finish)
 
     def setState(self, state):
-        self.__state = bool(state)
+        self.__state = state
 
     def clear(self):
         self.__name = ''

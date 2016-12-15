@@ -46,6 +46,7 @@ class EmployeeTask(MYWidget):
         # self.__list.hideColumn(1)
         self.__list.hideColumn(2)
         self.__list.hideColumn(3)
+        self.__list.hideColumn(4)
         self.__list.setColumnWidth(0, 250)
 
     def __init_Layouting(self):
