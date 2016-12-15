@@ -22,7 +22,7 @@ class ModelDepTask(DBAccessModel):
             app_db=data_base
         )
         self.setHeaders(
-            ['Отдел', 'Поручение', 'Дата начала', 'Дата отчета']
+            ['Отдел', 'Поручение', 'Дата начала', 'Дата отчета', 'Состояние']
         )
 
 
@@ -34,6 +34,8 @@ class ModelDepTask(DBAccessModel):
         data.setTask(attrs['task'])
         data.setDBDateTimeStart(attrs['datetime_start'])
         data.setDBDateTimeFinish(attrs['datetime_finish'])
+        data.setState(attrs['state'])
+
         return data
 
     def addRecord(self, data_structure, row=0):

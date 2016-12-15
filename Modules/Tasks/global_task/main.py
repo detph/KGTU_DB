@@ -11,7 +11,7 @@ from Widgets.PushButton import MYPushButton
 from Widgets.TableView import MYTableView
 from Widgets.Widget import MYWidget
 from icons import ICON
-from Modules.Tasks.BaseClases.model import ModelTask
+
 
 
 
@@ -74,7 +74,6 @@ class GlobalTasks(MYWidget):
         row = index.row()
         data = self.__model.getStructure(row)
         self.__form_view.setDataStructure(data)
-
 
     def __open_AddForm(self):
         self.__form_add.show()

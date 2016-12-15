@@ -23,6 +23,7 @@ class Structure(object):
         self.__datetime_finish = QDateTime()
         self.__db_datetime_start = QDateTime()
         self.__db_datetime_finish = ''
+        self.__state = False
 
     # PROPERTY
     @property
@@ -32,14 +33,12 @@ class Structure(object):
         except:
             return None
 
-
     @property
     def task(self):
         try:
             return self.__task
         except:
             return None
-
 
     @property
     def qDateStart(self):
@@ -126,12 +125,17 @@ class Structure(object):
             return None
 
     @property
+    def state(self):
+        return self.__state
+
+    @property
     def asFieldsForRecord(self):
         vals = [
             self.name,
             self.task,
             self.dbDateTimeStart,
-            self.dbDateTimeFinish
+            self.dbDateTimeFinish,
+            self.state
         ]
         return vals
 
@@ -173,6 +177,9 @@ class Structure(object):
     def setDBDateTimeFinish(self, db_datetime):
         self.__db_datetime_finish = db_datetime
         self.__datetime_finish = DateTimeConverter().dbToQt(self.__db_datetime_finish)
+
+    def setState(self, state):
+        self.__state = bool(state)
 
     def clear(self):
         self.__name = ''

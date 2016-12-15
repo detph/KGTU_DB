@@ -21,7 +21,7 @@ class ModelEmpTask(DBAccessModel):
             app_db=data_base
         )
         self.setHeaders(
-            ['ФИО', 'Поручение', 'Дата начала', 'Дата отчета']
+            ['ФИО', 'Поручение', 'Дата начала', 'Дата отчета', 'Состояние']
         )
 
 
@@ -33,6 +33,7 @@ class ModelEmpTask(DBAccessModel):
         data.setTask(attrs['task'])
         data.setDBDateTimeStart(attrs['datetime_start'])
         data.setDBDateTimeFinish(attrs['datetime_finish'])
+        data.setState(attrs['state'])
         return data
 
     def addRecord(self, data_structure, row=0):

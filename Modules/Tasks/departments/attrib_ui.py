@@ -1,10 +1,11 @@
 # Qt Types
 from PyQt5.QtCore import QDateTime
 from PyQt5.QtCore import QTime
+from PyQt5.QtWidgets import QTextBrowser
 
 from Modules.Tasks.BaseClases.data_structure import Structure
 from Modules.Tasks.BaseClases.date_label import DateLabel
-from Modules.Tasks.BaseClases.model import ModelTask
+from Modules.Tasks.global_task.model import ModelGlob
 from Modules.Tasks.departments.model import ModelDep
 
 # WIDGETS
@@ -47,7 +48,7 @@ class BaseUIAttribsDep(MYWidget):
     def __init_Attributes(self, role, DB):
         self.__structure = Structure()
         self.__model_dep = ModelDep(data_base=DB)
-        self.__model_task = ModelTask(DB=DB, parent=self)
+        self.__model_task = ModelGlob(data_base=DB)
         self.__uitype = role
 
         self.btns_layout = QHBoxLayout()
@@ -57,6 +58,7 @@ class BaseUIAttribsDep(MYWidget):
         self.__lbl_task = MYLabel(parent=self, bold=True, text='Поручение:')
         self.__lbl_date_start = MYLabel(parent=self, bold=True, text='Дата начала:')
         self.__lbl_date_finish = MYLabel(parent=self, bold=True, text='Дата отчёта:')
+        self.__descript = QTextBrowser(self)
 
         if self.__uitype == self.Editable:
             self.__name = MYComboBox(parent=self)
@@ -98,6 +100,7 @@ class BaseUIAttribsDep(MYWidget):
         self.main_layout.addLayout(self.__form_layout)
         self.main_layout.addLayout(self.btns_layout)
         self.main_layout.addItem(self.main_spacer)
+        self.main_layout.addWidget(self.__descript)
 
 
 

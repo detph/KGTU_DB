@@ -1,10 +1,11 @@
 # Qt Types
 from PyQt5.QtCore import QDateTime
 from PyQt5.QtCore import QTime
+from PyQt5.QtWidgets import QTextBrowser
 
 from Modules.Tasks.BaseClases.data_structure import Structure
 from Modules.Tasks.BaseClases.date_label import DateLabel
-from Modules.Tasks.BaseClases.model import ModelTask
+from Modules.Tasks.global_task.model import ModelGlob
 from Modules.Tasks.employees.model import ModelEmp
 
 # WIDGETS
@@ -39,7 +40,7 @@ class BaseUIAttribsEmp(MYWidget):
         self.__init_Attributes(role, DB)
         self.__init_Parameters()
         self.__init_Layouting()
-
+        self.__init_Connects()
 
 
 
@@ -47,7 +48,7 @@ class BaseUIAttribsEmp(MYWidget):
     def __init_Attributes(self, role, DB):
         self.__structure = Structure()
         self.__model_emp = ModelEmp(data_base=DB)
-        self.__model_task = ModelTask(DB=DB, parent=self)
+        self.__model_task = ModelGlob(data_base=DB)
         self.__uitype = role
 
         self.btns_layout = QHBoxLayout()
@@ -57,6 +58,7 @@ class BaseUIAttribsEmp(MYWidget):
         self.__lbl_task = MYLabel(parent=self, bold=True, text='Поручение:')
         self.__lbl_date_start = MYLabel(parent=self, bold=True, text='Дата начала:')
         self.__lbl_date_finish = MYLabel(parent=self, bold=True, text='Дата отчёта:')
+        self.__descript = QTextBrowser(self)
 
         if self.__uitype == self.Editable:
             self.__name = MYComboBox(parent=self)
@@ -95,11 +97,26 @@ class BaseUIAttribsEmp(MYWidget):
 
         self.main_layout.addLayout(self.__form_layout)
         self.main_layout.addLayout(self.btns_layout)
-        self.main_layout.addItem(self.main_spacer)
+        self.main_layout.addWidget(self.__descript)
 
+    def __init_Connects(self):
+        if self.__uitype == self.Editable:
+            self.__task.currentIndexChanged.connect(self.__load_Descrition)
 
 
     # class tools
+
+    def __load_Descrition(self):
+        task_name = self.__task.currentText()
+
+        for row in range(self.__model_task.rowCount()):
+            data = self.__model_task.getStructure(row)
+            name = data.name
+            if task_name == name:
+                descript = data.task
+                self.__descript.setText(descript)
+                break
+
     def __tool_SetName(self, name):
         name = str(name)
         self.__structure.setName(name)
@@ -162,6 +179,7 @@ class BaseUIAttribsEmp(MYWidget):
         self.__tool_SetTask(struct.task)
         self.__tool_SetDateStart(struct.qDateTimeStart)
         self.__tool_SetDateFinish(struct.qDateTimeFinish)
+        self.__load_Descrition()
 
 
     def updateModel(self):
