@@ -12,7 +12,7 @@ class Structure(object):
 
     Property:
           theme: <str> : тема заметки
-    description: <str> : описание заметки
+    task: <str> : описание заметки
           qDate: <QDate> : Qt дата
           qTime: <QTime> : Qt время
         strTime: <str>: время в виде строки

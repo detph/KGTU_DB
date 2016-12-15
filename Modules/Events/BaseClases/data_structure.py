@@ -22,7 +22,7 @@ class Structure(object):
         strDate: <str>: дата в виде строки
       qDateTime: <QDateTime>: Qt времядата
      dbDateTime: <DBDateTime>: БД времядата
-    description: <str> :  описание встречи
+    task: <str> :  описание встречи
     """
 
 

@@ -77,7 +77,7 @@ class Cell(QRect):
 
 
     def __resizeX(self):
-        # width of zone for text
+        # width of zone for name
         accept_w  = self.width() - self.__margins.left() - self.__margins.right()
 
         text_w = self.__textWidth()
@@ -88,7 +88,7 @@ class Cell(QRect):
 
 
     def __resizeY(self):
-        # height of zone for text
+        # height of zone for name
         accept_h = self.height() - self.__margins.top() - self.__margins.bottom()
 
         text_h = self.__textHeight()

@@ -17,12 +17,12 @@ class TablePainter(QPainter):
             self.setFont(table.header().font)
             for cell in table.header().cells:
                 self.drawRect(cell)
-                self.drawText(cell.textRect(), Qt.AlignCenter, cell.text())
+                self.drawText(cell.textRect(), Qt.AlignCenter, cell.name())
 
             #rows drawing
             self.setFont(table.rowsFont())
             for row in table.rows():
                 for cell in row.cells:
                     self.drawRect(cell)
-                    self.drawText(cell.textRect(), Qt.AlignCenter, cell.text())
+                    self.drawText(cell.textRect(), Qt.AlignCenter, cell.name())
 

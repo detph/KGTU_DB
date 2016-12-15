@@ -69,7 +69,7 @@ class MYTableWidget(QTableWidget):
     def itemRefactor(self, item):
         if self.editable:
             row = item.row()
-            text = item.text()
+            text = item.name()
             if (row == 0):
                 if text != '':
                     self.insertRow(0)
@@ -84,8 +84,8 @@ class MYTableWidget(QTableWidget):
         for row in range(self.rowCount()):
             item = self.item(row, col)
             if item:
-                if item.text() != '':
-                    result.append(item.text())
+                if item.name() != '':
+                    result.append(item.name())
         return result
 
 

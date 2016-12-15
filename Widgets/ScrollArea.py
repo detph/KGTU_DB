@@ -61,7 +61,7 @@ class MYScrollArea(QScrollArea):
 #
 #
 #     def add(self):
-#         for i in self.line.text():
+#         for i in self.line.name():
 #             label = QLabel(i)
 #             self.area.addContent(label)
 #

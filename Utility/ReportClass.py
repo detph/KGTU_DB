@@ -34,7 +34,7 @@ class Report():
         # td { spacing: 10}
         # """)
         self.Html += """
-        <style type=\"text/css\">
+        <style type=\"name/css\">
         table {
             border: 5px solid black
         }

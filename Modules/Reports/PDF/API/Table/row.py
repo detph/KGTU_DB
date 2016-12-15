@@ -102,16 +102,16 @@ if __name__ == '__main__':
             p.setFont(self.header.font)
             for cell in self.header.cells:
                 p.drawRect(cell)
-                p.drawText(cell.textRect(), Qt.AlignCenter, cell.text())
+                p.drawText(cell.textRect(), Qt.AlignCenter, cell.name())
 
             p.setFont(self.row.font)
             for cell in self.row.cells:
                 p.drawRect(cell)
-                p.drawText(cell.textRect(), Qt.AlignCenter, cell.text())
+                p.drawText(cell.textRect(), Qt.AlignCenter, cell.name())
 
             for cell in self.row2.cells:
                 p.drawRect(cell)
-                p.drawText(cell.textRect(), Qt.AlignCenter, cell.text())
+                p.drawText(cell.textRect(), Qt.AlignCenter, cell.name())
 
             p.end()
 

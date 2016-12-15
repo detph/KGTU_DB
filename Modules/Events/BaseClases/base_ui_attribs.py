@@ -202,7 +202,7 @@ class BaseUIAttribs(MYWidget):
     def setDataStructure(self, struct):
         self.__tool_SetFIO(struct.FIO)
         self.__tool_SetPlace(struct.place)
-        self.__tool_SetDescription(struct.description)
+        self.__tool_SetDescription(struct.task)
         self.__tool_SetDateTime(struct.qDateTime)
         self.__tool_SetState(struct.state)
 

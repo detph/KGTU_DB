@@ -114,7 +114,7 @@ class Application(QApplication):
             row = self.model.record(rowNumb)
             print()
             row.setValue(0, str(self.window.dateTimeEdit.dateTime().toPyDateTime()))
-            row.setValue(1, self.window.themeEdit.text())
+            row.setValue(1, self.window.themeEdit.name())
             # row.setValue(2, 0)
             row.setValue(3, self.window.textEdit.toPlainText())
             print(row.value(3))
@@ -122,8 +122,8 @@ class Application(QApplication):
 
     def showNoteItems(self, theme, text):
 
-        self.window.themeEdit.setText(theme)
-        self.window.textEdit.setText(text)
+        self.window.themeEdit.setName(theme)
+        self.window.textEdit.setName(text)
 
     def start(self):
 
