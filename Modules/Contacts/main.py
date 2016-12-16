@@ -57,7 +57,7 @@ class Contacts(MYWidget):
         self.main_layout.addLayout(self.__poisk_layout)
         self.main_layout.addLayout(self.__filters_layout)
         self.main_layout.addWidget(self.__list)
-    
+
     def __init_Connects(self):
         self.__list.doubleClicked.connect(self.__tool_OpenEditForm)
         self.__form_edit.accepted.connect(self.__tool_EditContact)

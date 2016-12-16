@@ -144,7 +144,7 @@ class BaseUIAttribs(MYWidget):
         self.__structure = struct
 
         self.__theme.setText(struct.theme)
-        self.__descript.setText(struct.task)
+        self.__descript.setText(struct.description)
         self.__date.setDate(struct.qDate)
         self.__time.setTime(struct.qTime)
 

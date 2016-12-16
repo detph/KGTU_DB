@@ -11,7 +11,7 @@ from Modules.Emloyees.main import Employees
 class AppMainWindow(MYMainWindow):
     def __init__(self, DB):
         super(AppMainWindow, self).__init__(
-            window_size=(1000, 600),
+            window_size=(1100, 630),
             title='Записная книжка',
             layout_margins=[10, 10, 10, 10]
         )

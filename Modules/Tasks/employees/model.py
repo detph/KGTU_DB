@@ -1,3 +1,7 @@
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QBrush
+from PyQt5.QtGui import QColor
+
 from DataBase.access_model import DBAccessModel
 from Modules.Tasks.BaseClases.data_structure import Structure
 
@@ -43,3 +47,24 @@ class ModelEmpTask(DBAccessModel):
     def editRecord(self, data_structure, row=0):
         values = data_structure.asFieldsForRecord
         super(ModelEmpTask, self).editRecord(fields=values, row=row)
+
+    def data(self, index, role=Qt.BackgroundRole):
+        if role == Qt.ForegroundRole:
+            row = index.row()
+            col = index.column()
+            if col == 0:
+                data = self.getStructure(row)
+                date = data.qDateTimeFinish
+                state = data.state
+                if date < date.currentDateTime() and state == 0:
+                    brush = QBrush()
+                    color = QColor(255, 0, 0, 200)
+                    brush.setColor(color)
+                    return brush
+                else:
+                    brush = QBrush()
+                    color = QColor(0, 255, 0, 200)
+                    brush.setColor(color)
+                    return brush
+        else:
+            return super(ModelEmpTask, self).data(index, role)

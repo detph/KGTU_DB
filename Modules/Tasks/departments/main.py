@@ -34,6 +34,8 @@ class DepartmentTask(MYWidget):
         self.__layout_list = QVBoxLayout()
         self.__btn_filter_all = MYPushButton(parent=self, text='Все')
         self.__btn_filter_today = MYPushButton(parent=self, text='На сегодня')
+        self.__btn_filter_nevipoln = MYPushButton(parent=self, text='Невыполненые')
+        self.__btn_filter_proval = MYPushButton(parent=self, text='Провальные')
         self.__btn_filter_day = MYDateEdit(parent=self)
 
         self.__form_view = FormView(DB, self)
@@ -54,6 +56,8 @@ class DepartmentTask(MYWidget):
     def __init_Layouting(self):
         self.__layout_filters.addWidget(self.__btn_filter_all)
         self.__layout_filters.addWidget(self.__btn_filter_today)
+        self.__layout_filters.addWidget(self.__btn_filter_nevipoln)
+        self.__layout_filters.addWidget(self.__btn_filter_proval)
         self.__layout_filters.addWidget(self.__btn_filter_day)
         self.__layout_list.addLayout(self.__layout_filters)
         self.__layout_list.addWidget(self.__list)

@@ -22,7 +22,7 @@ class FormAdd(MYDialog):
         )
         self.attribs = BaseUIAttribs(BaseUIAttribs.Editable)
         self.main_layout.addWidget(self.attribs)
-        self.setFixedSize(330, 150)
+        self.resize(440, 190)
 
 
 

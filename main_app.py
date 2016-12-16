@@ -767,7 +767,7 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical
 
 QWidget, QLabel:enabled {
     font-family: Calibri;
-    color: #EEE958;
+    color: rgb(191, 179, 119);
     font-size: 12pt;
 }
 """

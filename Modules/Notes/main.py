@@ -84,11 +84,11 @@ class Notes(MYWidget):
         self.__poisk_line.textChanged.connect(self.__poisk_Specific)
 
 
+
     def __poisk_Specific(self):
         field = 'theme'
         text = self.__poisk_line.text()
         self.__model.setPoisk(field, text)
-
 
     def __filter_All(self):
         self.__model.setFilter('')
@@ -106,8 +106,6 @@ class Notes(MYWidget):
     def __filter_Today(self):
         self.__model.setDateTimeFilter('==')
         self.__model.select()
-
-
 
 
 
