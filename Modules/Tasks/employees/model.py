@@ -56,7 +56,7 @@ class ModelEmpTask(DBAccessModel):
                 data = self.getStructure(row)
                 date = data.qDateTimeFinish
                 state = data.state
-                if date < date.currentDateTime() and state == 0:
+                if (date < date.currentDateTime()) and (state == 0):
                     brush = QBrush()
                     color = QColor(255, 0, 0, 200)
                     brush.setColor(color)

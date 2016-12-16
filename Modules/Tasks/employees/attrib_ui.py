@@ -227,6 +227,8 @@ class BaseUIAttribsEmp(MYWidget):
         self.__model_task.select()
 
 
+    def setFIO(self, name):
+        self.__tool_SetName(name)
 
 
 if __name__ == '__main__':

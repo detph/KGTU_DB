@@ -30,10 +30,14 @@ class EmployeeTask(MYWidget):
     def __init_Attributes(self, DB):
         self.__layout_filters = QHBoxLayout()
         self.__layout_list = QVBoxLayout()
+        self.__report_layout = QHBoxLayout()
+        self.__btn_report_add = MYPushButton(parent=self, text='Добавить в отчёт')
+        self.__btn_report = MYPushButton(parent=self, text='Отчёт')
         self.__btn_filter_all = MYPushButton(parent=self, text='Все')
         self.__btn_filter_today = MYPushButton(parent=self, text='На сегодня')
         self.__btn_filter_nevipoln = MYPushButton(parent=self, text='Невыполненые')
         self.__btn_filter_proval = MYPushButton(parent=self, text='Провальные')
+        self.__btn_filter_vipoln = MYPushButton(parent=self, text='Выполненные')
         self.__btn_filter_day = MYDateEdit(parent=self)
 
         self.__form_view = FormView(DB, self)
@@ -56,9 +60,13 @@ class EmployeeTask(MYWidget):
         self.__layout_filters.addWidget(self.__btn_filter_today)
         self.__layout_filters.addWidget(self.__btn_filter_nevipoln)
         self.__layout_filters.addWidget(self.__btn_filter_proval)
+        self.__layout_filters.addWidget(self.__btn_filter_vipoln)
         self.__layout_filters.addWidget(self.__btn_filter_day)
         self.__layout_list.addLayout(self.__layout_filters)
         self.__layout_list.addWidget(self.__list)
+        self.__report_layout.addWidget(self.__btn_report_add)
+        self.__report_layout.addWidget(self.__btn_report)
+        self.__layout_list.addLayout(self.__report_layout)
         self.main_layout.addLayout(self.__layout_list)
         self.main_layout.addWidget(self.__form_view)
 
@@ -72,13 +80,22 @@ class EmployeeTask(MYWidget):
         self.__btn_filter_all.clicked.connect(self.__filter_All)
         self.__btn_filter_today.clicked.connect(self.__filter_ToDay)
         self.__btn_filter_day.dateChanged.connect(self.__filter_SpecDate)
+        self.__btn_filter_vipoln.clicked.connect(self.__filter_Vipoln)
+        self.__btn_filter_nevipoln.clicked.connect(self.__filter_Nevipoln)
+        self.__btn_filter_proval.clicked.connect(self.__filter_Proval)
+
+
 
     def __load_attribs(self, index):
         row = index.row()
         data = self.__model.getStructure(row)
         self.__form_view.setDataStructure(data)
 
+    def __report_Add(self):
+        pass
 
+    def __report_Print(self):
+        pass
 
     def __open_FormEdit(self, index):
         row = index.row()
@@ -89,25 +106,6 @@ class EmployeeTask(MYWidget):
     def __open_FormAdd(self):
         self.__form_add.updatesEnabled()
         self.__form_add.exec_()
-
-    def __edit(self):
-        selected = self.__list.selectedIndexes()
-        if selected:
-            index = selected[0]
-            data = self.__form_edit.attribs.dataStructure
-            row = index.row()
-            self.__model.editRecord(data, row)
-            self.__load_attribs(index)
-
-    def __add(self):
-        data = self.__form_add.attribs.dataStructure
-        self.__model.addRecord(data)
-
-    def __remove(self):
-        selected = self.__list.selectedIndexes()
-        if selected:
-            index = selected[0]
-            self.__model.removeRecord(index.row())
 
     def __filter_All(self):
         self.__model.setFilter('')
@@ -129,9 +127,40 @@ class EmployeeTask(MYWidget):
         )
         self.__model.select()
 
+    def __filter_Vipoln(self):
+        self.__model.setFilter('state == 1')
+        self.__model.select()
+
+    def __filter_Nevipoln(self):
+        self.__model.setFilter('state == 0')
+        self.__model.select()
+
+    def __filter_Proval(self):
+        pass
+
+    def __edit(self):
+        selected = self.__list.selectedIndexes()
+        if selected:
+            index = selected[0]
+            data = self.__form_edit.attribs.dataStructure
+            row = index.row()
+            self.__model.editRecord(data, row)
+            self.__load_attribs(index)
+
+    def __add(self):
+        data = self.__form_add.attribs.dataStructure
+        self.__model.addRecord(data)
+
+    def __remove(self):
+        selected = self.__list.selectedIndexes()
+        if selected:
+            index = selected[0]
+            self.__model.removeRecord(index.row())
+
     #SLOT
     def createEmployeeTask(self, name):
         self.__form_add.setFIO(name)
+        self.__form_add.attribs.updateModel()
         self.__form_add.show()
 
 
