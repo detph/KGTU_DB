@@ -27,7 +27,7 @@ class DateTimeConverter(object):
         Конвертирует Qt дату в дату для БД
         :param q_date: <QDateTime> : Qt дата
         """
-        return str(q_datetime.toPyDateTime())[:16]
+        return str(q_datetime.toPyDateTime())[:19]
 
 
     # конверторы ИЗ БД формата

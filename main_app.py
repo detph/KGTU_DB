@@ -1,6 +1,8 @@
 import sys
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtSql import QSqlDatabase
+
+from Utility.ReportClass import Report
 from paths import DB_FILE_PATH
 from Utility.messages import MESSAGE
 

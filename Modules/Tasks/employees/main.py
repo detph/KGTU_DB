@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import QVBoxLayout
 from Modules.Tasks.employees.form_add import FormAdd
 from Modules.Tasks.employees.form_edit import FormEdit
 from Modules.Tasks.employees.model import ModelEmpTask
+from Utility.ReportClass import Report
 from Widgets.ComboBox import MYComboBox
 from Widgets.DateEdit import MYDateEdit
 from Widgets.PushButton import MYPushButton
@@ -28,6 +29,8 @@ class EmployeeTask(MYWidget):
         self.__init_Connects()
 
     def __init_Attributes(self, DB):
+
+        self.__Report = Report(name="Отчет по поручениям сотрудникам")
         self.__layout_filters = QHBoxLayout()
         self.__layout_list = QVBoxLayout()
         self.__report_layout = QHBoxLayout()
@@ -84,6 +87,8 @@ class EmployeeTask(MYWidget):
         self.__btn_filter_nevipoln.clicked.connect(self.__filter_Nevipoln)
         self.__btn_filter_proval.clicked.connect(self.__filter_Proval)
 
+        self.__btn_report.clicked.connect(self.__report_Print)
+
 
 
     def __load_attribs(self, index):
@@ -95,9 +100,10 @@ class EmployeeTask(MYWidget):
         pass
 
     def __report_Print(self):
-        pass
+        self.__Report.showPreview()
 
     def __open_FormEdit(self, index):
+        self.__form_edit.attribs.updateModel()
         row = index.row()
         data = self.__model.getStructure(row)
         self.__form_edit.attribs.setDataStructure(data)
@@ -105,6 +111,7 @@ class EmployeeTask(MYWidget):
 
     def __open_FormAdd(self):
         self.__form_add.updatesEnabled()
+        self.__form_add.attribs.updateModel()
         self.__form_add.exec_()
 
     def __filter_All(self):
@@ -150,6 +157,7 @@ class EmployeeTask(MYWidget):
     def __add(self):
         data = self.__form_add.attribs.dataStructure
         self.__model.addRecord(data)
+        self.__model.select()
 
     def __remove(self):
         selected = self.__list.selectedIndexes()

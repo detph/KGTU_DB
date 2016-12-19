@@ -206,6 +206,8 @@ class BaseUIAttribs(MYWidget):
         self.__tool_SetDateTime(struct.qDateTime)
         self.__tool_SetState(struct.state)
 
+    def updateModel(self):
+        self.__fio_model.select()
 
 
 

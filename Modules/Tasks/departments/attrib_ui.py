@@ -192,7 +192,7 @@ class BaseUIAttribsDep(MYWidget):
             else:
                 state = 1
 
-        time = QTime(0, 0)
+        time = QTime().currentTime()
         sdatetime = QDateTime()
         sdatetime.setDate(dstart)
         sdatetime.setTime(time)

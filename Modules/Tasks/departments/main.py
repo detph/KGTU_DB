@@ -5,6 +5,7 @@ from Modules.Tasks.departments.form_add import FormAdd
 from Modules.Tasks.departments.form_edit import FormEdit
 from Modules.Tasks.departments.form_view import FormView
 from Modules.Tasks.departments.model import ModelDepTask
+from Utility.ReportClass import Report
 from Widgets.DateEdit import MYDateEdit
 from Widgets.PushButton import MYPushButton
 from Widgets.TableView import MYTableView
@@ -30,6 +31,7 @@ class DepartmentTask(MYWidget):
         self.__init_Connects()
 
     def __init_Attributes(self, DB):
+        self.__Report = Report(name="Отчет по поручениям отделам")
         self.__layout_filters = QHBoxLayout()
         self.__layout_list = QVBoxLayout()
         self.__report_layout = QHBoxLayout()
@@ -97,7 +99,7 @@ class DepartmentTask(MYWidget):
         pass
 
     def __report_Print(self):
-        pass
+        self.__Report.showPreview()
 
     def __filter_All(self):
         self.__model.setFilter('')
@@ -138,6 +140,7 @@ class DepartmentTask(MYWidget):
         self.__form_edit.exec_()
 
     def __open_FormAdd(self):
+        self.__form_add.updatesEnabled()
         self.__form_add.attribs.updateModel()
         self.__form_add.exec_()
 
@@ -152,7 +155,7 @@ class DepartmentTask(MYWidget):
             self.__load_attribs(index)
 
     def __add(self):
-        data = self.__form_add.attribs.dataStructure
+        data = self.__form_add.attribs.dataStructureы
         self.__model.addRecord(data)
         self.__model.select()
 
