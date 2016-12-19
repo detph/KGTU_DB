@@ -30,6 +30,8 @@ class EmployeeTask(MYWidget):
 
     def __init_Attributes(self, DB):
 
+
+        self.__report_filter = 0
         self.__Report = Report(name="Отчет по поручениям сотрудникам")
         self.__layout_filters = QHBoxLayout()
         self.__layout_list = QVBoxLayout()
@@ -88,6 +90,7 @@ class EmployeeTask(MYWidget):
         self.__btn_filter_proval.clicked.connect(self.__filter_Proval)
 
         self.__btn_report.clicked.connect(self.__report_Print)
+        self.__btn_report_add.clicked.connect(self.__report_Add)
 
 
 
@@ -96,8 +99,75 @@ class EmployeeTask(MYWidget):
         data = self.__model.getStructure(row)
         self.__form_view.setDataStructure(data)
 
+
+
     def __report_Add(self):
-        pass
+
+        indexes = [5]
+        if self.__report_filter == 0:
+            self.__Report.addString("Все поручения")
+        elif self.__report_filter == 1:
+            self.__Report.addString("Поручения на сегодня")
+            indexes += [2, 3]
+        elif self.__report_filter == 2:
+            self.__Report.addString("Поручения на " + str(self.__btn_filter_day.dateTime().date().toPyDate()))
+            indexes += [2, 3]
+        elif self.__report_filter == 3:
+            self.__Report.addString("Выполненые поручения")
+            indexes += [4]
+        elif self.__report_filter == 4:
+            self.__Report.addString("Не выполненые поручения")
+            indexes += [4]
+        elif self.__report_filter == 5:
+            self.__Report.addString("Просроченные поручения")
+            indexes += [4]
+
+        def getState(nnn):
+            if nnn == 0:
+                return "Не выполнен"
+            elif nnn == 1:
+                return "Выполнено"
+
+        self.__Report.addTableFromModel(
+            model=self.__model,
+            fieldsNames=["ФИО","Задание","Начало","Окончание","Выполнение"],
+            fieldsIndexes=indexes,
+            delegates={4:getState}
+        )
+
+    def __report_Add(self):
+
+        indexes = [5]
+        if self.__report_filter == 0:
+            self.__Report.addString("Все поручения")
+        elif self.__report_filter == 1:
+            self.__Report.addString("Поручения на сегодня")
+            indexes += [2, 3]
+        elif self.__report_filter == 2:
+            self.__Report.addString("Поручения на " + str(self.__btn_filter_day.dateTime().date().toPyDate()))
+            indexes += [2, 3]
+        elif self.__report_filter == 3:
+            self.__Report.addString("Выполненые поручения")
+            indexes += [4]
+        elif self.__report_filter == 4:
+            self.__Report.addString("Не выполненые поручения")
+            indexes += [4]
+        elif self.__report_filter == 5:
+            self.__Report.addString("Просроченные поручения")
+            indexes += [4]
+
+        def getState(nnn):
+            if nnn == 0:
+                return "Не выполнен"
+            elif nnn == 1:
+                return "Выполнено"
+
+        self.__Report.addTableFromModel(
+            model=self.__model,
+            fieldsNames=["ФИО","Задание","Начало","Окончание","Выполнение"],
+            fieldsIndexes=indexes,
+            delegates={4:getState}
+        )
 
     def __report_Print(self):
         self.__Report.showPreview()
@@ -117,12 +187,14 @@ class EmployeeTask(MYWidget):
     def __filter_All(self):
         self.__model.setFilter('')
         self.__model.select()
+        self.__report_filter = 0
 
     def __filter_ToDay(self):
         d = self.__btn_filter_day.date().currentDate()
         self.__btn_filter_day.setDate(d)
         self.__model.setDateTimeFilter('==')
         self.__model.select()
+        self.__report_filter = 1
 
     def __filter_SpecDate(self):
         dt = self.__btn_filter_day.dateTime()
@@ -133,17 +205,27 @@ class EmployeeTask(MYWidget):
             date=dt
         )
         self.__model.select()
+        self.__report_filter = 2
 
     def __filter_Vipoln(self):
         self.__model.setFilter('state == 1')
         self.__model.select()
+        self.__report_filter = 3
 
     def __filter_Nevipoln(self):
         self.__model.setFilter('state == 0')
         self.__model.select()
+        self.__report_filter = 4
 
     def __filter_Proval(self):
-        pass
+        self.__model.setDateTimeFilter(
+            compare_sign=">",
+            field='datetime_finish',
+            type='d',
+        )
+        self.__model.setFilter(self.__model.filter() + ' and state == 0')
+        self.__report_filter = 5
+        self.__report_filter = 5
 
     def __edit(self):
         selected = self.__list.selectedIndexes()

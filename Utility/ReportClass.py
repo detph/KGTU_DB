@@ -69,7 +69,7 @@ class Report():
 
     def addString(self, string = None):
         if string == None:
-            self.Html += "<br><h3>" + self.string + "<\h3>"
+            self.Html += "<br><h2>" + self.string + "<\h2>"
         else:
             self.Html += string
 
@@ -96,7 +96,7 @@ class Report():
             self.Html += "</tr>"
 
 
-        self.Html += "</tbody></table>"
+        self.Html += "</tbody></table><br>"
 
     def addTableFromModel(self, model, fieldsIndexes = [], fieldsNames = {}, delegates = {}):
         fields = []
